@@ -1,4 +1,3 @@
-
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -13,3 +12,4 @@ export async function saveSearchToSupabase(searchText) {
 
   if (error) console.error('Error guardando búsqueda:', error);
 }
+
