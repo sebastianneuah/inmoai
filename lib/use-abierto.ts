@@ -10,11 +10,11 @@ import { estaAbierto, proximaApertura } from "@/lib/horarios";
  * Antes de la hidratación devuelve el valor que calculó el servidor.
  */
 export function useAbierto(inicial: { abierto: boolean; proxima: string }) {
-  const [estado, setEstado] = useState(inicial);
+  const [estado, setEstado] = useState({ ...inicial, calculado: false });
 
   useEffect(() => {
     const actualizar = () =>
-      setEstado({ abierto: estaAbierto(), proxima: proximaApertura() });
+      setEstado({ abierto: estaAbierto(), proxima: proximaApertura(), calculado: true });
     actualizar();
     const intervalo = setInterval(actualizar, 30_000);
     return () => clearInterval(intervalo);

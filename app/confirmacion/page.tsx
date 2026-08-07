@@ -9,7 +9,7 @@ import {
   mensajeComprobante,
   mensajeRespaldoPedido,
 } from "@/lib/whatsapp";
-import { CLAVE_ULTIMO_PEDIDO } from "@/components/carrito";
+import { leerUltimoPedido } from "@/lib/ultimo-pedido";
 import type { PedidoConfirmado } from "@/lib/tipos";
 
 /**
@@ -23,12 +23,7 @@ export default function PaginaConfirmacion() {
   const [aliasCopiado, setAliasCopiado] = useState(false);
 
   useEffect(() => {
-    try {
-      const guardado = localStorage.getItem(CLAVE_ULTIMO_PEDIDO);
-      if (guardado) setPedido(JSON.parse(guardado));
-    } catch {
-      // sin pedido guardado
-    }
+    setPedido(leerUltimoPedido());
     setCargando(false);
   }, []);
 
@@ -59,6 +54,7 @@ export default function PaginaConfirmacion() {
   }
 
   const esTransferencia = pedido.pago.metodo === "transferencia";
+  const tieneWhatsApp = Boolean(pedido.datosPago.whatsappNumero);
 
   return (
     <main className="mx-auto max-w-2xl px-4 pb-16 pt-8">
@@ -84,14 +80,20 @@ export default function PaginaConfirmacion() {
             Tuvimos un problema técnico para pasar el pedido a cocina. Tocá el botón y
             mandanos el detalle por WhatsApp (ya va escrito): así lo cargamos al toque.
           </p>
-          <a
-            href={linkWhatsApp(pedido.datosPago.whatsappNumero, mensajeRespaldoPedido(pedido))}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 grid min-h-14 place-items-center rounded-xl bg-fuego px-4 text-center font-black text-white active:bg-fuego-oscuro"
-          >
-            📲 Enviar mi pedido por WhatsApp
-          </a>
+          {tieneWhatsApp ? (
+            <a
+              href={linkWhatsApp(pedido.datosPago.whatsappNumero, mensajeRespaldoPedido(pedido))}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 grid min-h-14 place-items-center rounded-xl bg-fuego px-4 text-center font-black text-white active:bg-fuego-oscuro"
+            >
+              📲 Enviar mi pedido por WhatsApp
+            </a>
+          ) : (
+            <p className="mt-3 text-sm font-bold">
+              Llamá o escribí al local con tu número de pedido #{pedido.numero}.
+            </p>
+          )}
         </div>
       )}
 
@@ -99,29 +101,37 @@ export default function PaginaConfirmacion() {
       {esTransferencia ? (
         <div className="mt-5 rounded-2xl border-2 border-tinta p-4">
           <h2 className="text-lg font-black">Transferí {formatearPrecio(pedido.total)}</h2>
-          <div className="mt-3 flex items-center justify-between gap-3 rounded-xl bg-marfil p-3">
-            <div className="min-w-0">
-              <p className="text-xs font-bold uppercase text-tinta-suave">Alias</p>
-              <p className="break-all text-lg font-black">{pedido.datosPago.aliasMp}</p>
+          {pedido.datosPago.aliasMp ? (
+            <div className="mt-3 flex items-center justify-between gap-3 rounded-xl bg-marfil p-3">
+              <div className="min-w-0">
+                <p className="text-xs font-bold uppercase text-tinta-suave">Alias</p>
+                <p className="break-all text-lg font-black">{pedido.datosPago.aliasMp}</p>
+              </div>
+              <button
+                onClick={() => copiarAlias(pedido.datosPago.aliasMp)}
+                className="min-h-11 shrink-0 rounded-xl bg-tinta px-4 text-sm font-black text-white"
+              >
+                {aliasCopiado ? "¡Copiado!" : "Copiar alias"}
+              </button>
             </div>
-            <button
-              onClick={() => copiarAlias(pedido.datosPago.aliasMp)}
-              className="min-h-11 shrink-0 rounded-xl bg-tinta px-4 text-sm font-black text-white"
-            >
-              {aliasCopiado ? "¡Copiado!" : "Copiar alias"}
-            </button>
-          </div>
+          ) : (
+            <p className="mt-3 rounded-xl bg-marfil p-3 text-sm font-bold">
+              Escribinos por WhatsApp y te pasamos el alias para transferir.
+            </p>
+          )}
           <p className="mt-3 rounded-xl bg-fuego-claro px-3 py-2 text-center text-sm font-black text-fuego">
             ⚠️ {NEGOCIO.textos.avisoTransferencia}
           </p>
-          <a
-            href={linkWhatsApp(pedido.datosPago.whatsappNumero, mensajeComprobante(pedido))}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 grid min-h-14 place-items-center rounded-xl bg-fuego px-4 text-center font-black text-white active:bg-fuego-oscuro"
-          >
-            📲 Enviar comprobante por WhatsApp
-          </a>
+          {tieneWhatsApp && (
+            <a
+              href={linkWhatsApp(pedido.datosPago.whatsappNumero, mensajeComprobante(pedido))}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 grid min-h-14 place-items-center rounded-xl bg-fuego px-4 text-center font-black text-white active:bg-fuego-oscuro"
+            >
+              📲 Enviar comprobante por WhatsApp
+            </a>
+          )}
         </div>
       ) : (
         <div className="mt-5 rounded-2xl border-2 border-tinta p-4">
@@ -145,8 +155,8 @@ export default function PaginaConfirmacion() {
       <div className="mt-5 rounded-2xl bg-marfil p-4">
         <h2 className="font-black">Resumen</h2>
         <ul className="mt-2 space-y-1 text-sm">
-          {pedido.items.map((item) => (
-            <li key={item.productoId} className="flex justify-between gap-3">
+          {pedido.items.map((item, indice) => (
+            <li key={indice} className="flex justify-between gap-3">
               <span>
                 {item.cantidad}× {item.nombre}
                 {item.aclaracion && (
@@ -183,6 +193,7 @@ export default function PaginaConfirmacion() {
             <>
               🛵 Va a: {pedido.cliente.direccion}
               {pedido.cliente.referencias && <> ({pedido.cliente.referencias})</>}
+              {pedido.zonaEnvio && <> — Zona: {pedido.zonaEnvio}</>}
             </>
           ) : (
             <>🏪 Retirás por: {NEGOCIO.entrega.direccionLocal}</>

@@ -6,20 +6,33 @@ import { useRouter } from "next/navigation";
 import { NEGOCIO } from "@/config/negocio";
 import { formatearPrecio } from "@/lib/precio";
 import { telefonoValido } from "@/lib/validacion";
+import { costoEnvioDelivery, hayZonas } from "@/lib/envio";
 import { useAbierto } from "@/lib/use-abierto";
-import {
-  CLAVE_CLIENTE,
-  CLAVE_ULTIMO_PEDIDO,
-  useCarrito,
-  type DatosCliente,
-} from "@/components/carrito";
+import { guardarUltimoPedido } from "@/lib/ultimo-pedido";
+import { CLAVE_CLIENTE, useCarrito, type DatosCliente } from "@/components/carrito";
 import type { PedidoEntrante, RespuestaApiPedidos } from "@/lib/tipos";
+
+/** El monto en efectivo se escribe como sea ("50.000", "50000"): solo cuentan los dígitos */
+function parsearMonto(texto: string): number {
+  const digitos = texto.replace(/\D/g, "");
+  return digitos ? Number(digitos) : NaN;
+}
+
+/** Sugerencias de billetes: totales redondos con los que la gente suele pagar */
+function sugerenciasDePago(total: number): number[] {
+  const redondeos = [10_000, 20_000, 50_000].map(
+    (paso) => Math.ceil(total / paso) * paso
+  );
+  return Array.from(new Set(redondeos))
+    .filter((monto) => monto > total)
+    .slice(0, 3);
+}
 
 /** Checkout en una sola pantalla: pedido → datos → pago → confirmar. */
 export default function PaginaCheckout() {
   const router = useRouter();
   const carrito = useCarrito();
-  const { abierto, proxima } = useAbierto({ abierto: true, proxima: "" });
+  const { abierto, proxima, calculado } = useAbierto({ abierto: true, proxima: "" });
 
   const [cliente, setCliente] = useState<DatosCliente>({
     nombre: "",
@@ -27,10 +40,12 @@ export default function PaginaCheckout() {
     direccion: "",
     referencias: "",
   });
+  const [zonaId, setZonaId] = useState("");
   const [metodoPago, setMetodoPago] = useState<"efectivo" | "transferencia">("efectivo");
   const [pagaCon, setPagaCon] = useState("");
   const [montoJusto, setMontoJusto] = useState(false);
   const [enviando, setEnviando] = useState(false);
+  const [pedidoEnviado, setPedidoEnviado] = useState(false);
   const [error, setError] = useState("");
   const [claveIdempotencia] = useState(() =>
     typeof crypto !== "undefined" && crypto.randomUUID
@@ -42,14 +57,25 @@ export default function PaginaCheckout() {
   useEffect(() => {
     try {
       const guardado = localStorage.getItem(CLAVE_CLIENTE);
-      if (guardado) setCliente((previo) => ({ ...previo, ...JSON.parse(guardado) }));
+      if (guardado) {
+        const datos = JSON.parse(guardado) as Partial<DatosCliente>;
+        setCliente((previo) => ({
+          nombre: typeof datos.nombre === "string" ? datos.nombre : previo.nombre,
+          telefono: typeof datos.telefono === "string" ? datos.telefono : previo.telefono,
+          direccion:
+            typeof datos.direccion === "string" ? datos.direccion : previo.direccion,
+          referencias:
+            typeof datos.referencias === "string" ? datos.referencias : previo.referencias,
+        }));
+      }
     } catch {
       // sin datos guardados
     }
   }, []);
 
   const esDelivery = carrito.modoEntrega === "delivery";
-  const costoEnvio = esDelivery ? NEGOCIO.entrega.envio.costoUnico : 0;
+  const costoEnvio = esDelivery ? (costoEnvioDelivery(zonaId || undefined) ?? 0) : 0;
+  const faltaZona = esDelivery && hayZonas() && !zonaId;
   const total = carrito.subtotal + costoEnvio;
   const faltaParaMinimo = esDelivery
     ? Math.max(0, NEGOCIO.entrega.pedidoMinimoDelivery - carrito.subtotal)
@@ -62,12 +88,13 @@ export default function PaginaCheckout() {
       return "Revisá el teléfono: usá el formato 11 2345 6789.";
     }
     if (esDelivery && !cliente.direccion.trim()) return "Falta la dirección de entrega.";
+    if (faltaZona) return "Elegí tu zona de entrega.";
     if (faltaParaMinimo > 0) {
       return `Te faltan ${formatearPrecio(faltaParaMinimo)} para llegar al mínimo de delivery.`;
     }
     if (metodoPago === "efectivo" && !montoJusto) {
-      const monto = Number(pagaCon.replace(/\./g, "").replace(",", "."));
-      if (!pagaCon || !Number.isFinite(monto)) {
+      const monto = parsearMonto(pagaCon);
+      if (!Number.isFinite(monto)) {
         return "Decinos con cuánto pagás así preparamos el vuelto (o marcá monto justo).";
       }
       if (monto < total) {
@@ -89,12 +116,14 @@ export default function PaginaCheckout() {
     const pedido: PedidoEntrante = {
       claveIdempotencia,
       modoEntrega: carrito.modoEntrega,
+      zonaId: esDelivery && zonaId ? zonaId : undefined,
       items: carrito.items.map((i) => ({
         productoId: i.productoId,
         cantidad: i.cantidad,
         aclaracion: i.aclaracion,
       })),
       aclaracionGeneral: carrito.aclaracionGeneral || undefined,
+      totalEsperado: total,
       cliente: {
         nombre: cliente.nombre,
         telefono: cliente.telefono,
@@ -105,9 +134,7 @@ export default function PaginaCheckout() {
         metodoPago === "efectivo"
           ? {
               metodo: "efectivo",
-              pagaCon: montoJusto
-                ? "justo"
-                : Number(pagaCon.replace(/\./g, "").replace(",", ".")),
+              pagaCon: montoJusto ? "justo" : parsearMonto(pagaCon),
             }
           : { metodo: "transferencia" },
     };
@@ -120,17 +147,21 @@ export default function PaginaCheckout() {
       });
       const datos = (await respuesta.json()) as RespuestaApiPedidos;
       if (!datos.ok) {
+        // Si cambiaron los precios, sincronizamos el carrito con los nuevos
+        if (datos.preciosActualizados?.length) {
+          carrito.actualizarPrecios(datos.preciosActualizados);
+        }
         setError(datos.error);
         setEnviando(false);
         return;
       }
-      // Recordamos los datos del cliente para la próxima y vamos a la confirmación
+      guardarUltimoPedido(datos.pedido);
       try {
         localStorage.setItem(CLAVE_CLIENTE, JSON.stringify(cliente));
-        localStorage.setItem(CLAVE_ULTIMO_PEDIDO, JSON.stringify(datos.pedido));
       } catch {
         // si localStorage falla, la confirmación igual se muestra
       }
+      setPedidoEnviado(true);
       carrito.vaciar();
       router.push("/confirmacion");
     } catch {
@@ -139,7 +170,7 @@ export default function PaginaCheckout() {
     }
   }
 
-  if (carrito.listo && carrito.items.length === 0) {
+  if (carrito.listo && carrito.items.length === 0 && !pedidoEnviado) {
     return (
       <main className="mx-auto max-w-2xl px-4 py-16 text-center">
         <p className="text-lg font-bold">Tu carrito está vacío</p>
@@ -157,7 +188,7 @@ export default function PaginaCheckout() {
     "mt-1 w-full rounded-xl border border-gray-300 px-3 py-3 text-base";
 
   return (
-    <main className="mx-auto max-w-2xl px-4 pb-40 pt-4">
+    <main className="mx-auto max-w-2xl px-4 pb-44 pt-4">
       <div className="flex items-center gap-3">
         <Link
           href="/"
@@ -169,10 +200,36 @@ export default function PaginaCheckout() {
         <h1 className="text-xl font-black">Tu pedido</h1>
       </div>
 
+      {/* ── Modo de entrega ── */}
+      <div
+        role="radiogroup"
+        aria-label="Modo de entrega"
+        className="mt-3 grid grid-cols-2 gap-1 rounded-xl bg-marfil p-1"
+      >
+        {(
+          [
+            ["delivery", "🛵 Delivery"],
+            ["retiro", "🏪 Retiro"],
+          ] as const
+        ).map(([modo, etiqueta]) => (
+          <button
+            key={modo}
+            role="radio"
+            aria-checked={carrito.modoEntrega === modo}
+            onClick={() => carrito.setModoEntrega(modo)}
+            className={`min-h-11 rounded-lg text-sm font-bold ${
+              carrito.modoEntrega === modo ? "bg-tinta text-white" : "text-tinta-suave"
+            }`}
+          >
+            {etiqueta}
+          </button>
+        ))}
+      </div>
+
       {/* ── Ítems ── */}
       <ul className="mt-4 divide-y divide-gray-100">
         {carrito.items.map((item) => (
-          <li key={item.productoId} className="py-3">
+          <li key={item.lineaId} className="py-3">
             <div className="flex items-center justify-between gap-3">
               <p className="min-w-0 flex-1 font-bold leading-snug">{item.nombre}</p>
               <p className="font-black text-fuego">
@@ -182,7 +239,7 @@ export default function PaginaCheckout() {
             <div className="mt-2 flex items-center gap-3">
               <div className="flex items-center rounded-xl border border-gray-300">
                 <button
-                  onClick={() => carrito.cambiarCantidad(item.productoId, item.cantidad - 1)}
+                  onClick={() => carrito.cambiarCantidad(item.lineaId, item.cantidad - 1)}
                   aria-label={`Restar ${item.nombre}`}
                   className="h-11 w-11 text-lg font-black"
                 >
@@ -190,7 +247,7 @@ export default function PaginaCheckout() {
                 </button>
                 <span className="w-7 text-center font-black">{item.cantidad}</span>
                 <button
-                  onClick={() => carrito.cambiarCantidad(item.productoId, item.cantidad + 1)}
+                  onClick={() => carrito.cambiarCantidad(item.lineaId, item.cantidad + 1)}
                   aria-label={`Sumar ${item.nombre}`}
                   className="h-11 w-11 text-lg font-black"
                 >
@@ -198,7 +255,7 @@ export default function PaginaCheckout() {
                 </button>
               </div>
               <button
-                onClick={() => carrito.quitar(item.productoId)}
+                onClick={() => carrito.quitar(item.lineaId)}
                 className="min-h-11 rounded-xl px-3 text-sm font-bold text-tinta-suave"
               >
                 Borrar
@@ -207,7 +264,7 @@ export default function PaginaCheckout() {
             <input
               type="text"
               value={item.aclaracion ?? ""}
-              onChange={(e) => carrito.cambiarAclaracion(item.productoId, e.target.value)}
+              onChange={(e) => carrito.cambiarAclaracion(item.lineaId, e.target.value)}
               placeholder='Aclaración: "sin verdeo"…'
               maxLength={200}
               className="mt-2 w-full rounded-xl border border-gray-200 bg-marfil px-3 py-2.5 text-sm"
@@ -266,6 +323,23 @@ export default function PaginaCheckout() {
                 className={estiloCampo}
               />
             </label>
+            {hayZonas() && (
+              <label className="block">
+                <span className="text-sm font-bold">Zona de entrega</span>
+                <select
+                  value={zonaId}
+                  onChange={(e) => setZonaId(e.target.value)}
+                  className={estiloCampo}
+                >
+                  <option value="">Elegí tu zona…</option>
+                  {NEGOCIO.entrega.envio.zonas.map((zona) => (
+                    <option key={zona.id} value={zona.id}>
+                      {zona.nombre} — envío {formatearPrecio(zona.costo)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
             <label className="block">
               <span className="text-sm font-bold">Referencias (opcional)</span>
               <input
@@ -316,13 +390,30 @@ export default function PaginaCheckout() {
             <input
               type="text"
               inputMode="numeric"
-              placeholder={`Ej.: ${formatearPrecio(Math.ceil(total / 10000) * 10000).slice(1)}`}
+              placeholder="Ej.: 50.000"
               value={montoJusto ? "" : pagaCon}
               disabled={montoJusto}
               onChange={(e) => setPagaCon(e.target.value)}
               className={`${estiloCampo} disabled:opacity-50`}
             />
           </label>
+          {!montoJusto && sugerenciasDePago(total).length > 0 && (
+            <div className="mt-2 flex gap-2">
+              {sugerenciasDePago(total).map((monto) => (
+                <button
+                  key={monto}
+                  onClick={() => setPagaCon(String(monto))}
+                  className={`min-h-11 rounded-full border px-4 text-sm font-bold ${
+                    parsearMonto(pagaCon) === monto
+                      ? "border-fuego bg-fuego-claro text-fuego"
+                      : "border-gray-300 bg-white text-tinta-suave"
+                  }`}
+                >
+                  {formatearPrecio(monto)}
+                </button>
+              ))}
+            </div>
+          )}
           <label className="mt-2 flex min-h-11 items-center gap-2 text-sm font-bold">
             <input
               type="checkbox"
@@ -355,7 +446,7 @@ export default function PaginaCheckout() {
           {esDelivery && (
             <div className="flex justify-between text-sm text-tinta-suave">
               <span>Envío</span>
-              <span>{formatearPrecio(costoEnvio)}</span>
+              <span>{faltaZona ? "según zona" : formatearPrecio(costoEnvio)}</span>
             </div>
           )}
           {error && (
@@ -363,10 +454,10 @@ export default function PaginaCheckout() {
               {error}
             </p>
           )}
-          {abierto ? (
+          {!calculado || abierto ? (
             <button
               onClick={confirmarPedido}
-              disabled={enviando || !carrito.listo}
+              disabled={enviando || !carrito.listo || !calculado}
               className="mt-2 flex min-h-14 w-full items-center justify-between rounded-xl bg-fuego px-5 font-black text-white active:bg-fuego-oscuro disabled:opacity-60"
             >
               <span>{enviando ? "Enviando…" : "Confirmar pedido"}</span>

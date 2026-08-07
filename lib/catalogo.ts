@@ -13,7 +13,7 @@ type RecursoFudo = {
   type: string;
   attributes: Record<string, unknown>;
   relationships?: {
-    productCategory?: { data: { id: string } };
+    productCategory?: { data?: { id: string } };
   };
 };
 
@@ -37,7 +37,7 @@ function adaptarProductos(data: RecursoFudo[]): Producto[] {
         nombre: String(p.attributes.name ?? ""),
         descripcion: String(p.attributes.description ?? ""),
         precio: Number(p.attributes.price ?? 0),
-        categoriaId: p.relationships?.productCategory?.data.id ?? "",
+        categoriaId: p.relationships?.productCategory?.data?.id ?? "",
         // active=false en Fudo = sin stock: se muestra como "Agotado"
         agotado: p.attributes.active === false,
         imagen: typeof p.attributes.imageUrl === "string" ? p.attributes.imageUrl : undefined,

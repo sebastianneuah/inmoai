@@ -65,6 +65,14 @@ export function ModalProducto({
             ✕
           </button>
         </div>
+        {producto.imagen && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={producto.imagen}
+            alt=""
+            className="mt-3 h-40 w-full rounded-xl object-cover"
+          />
+        )}
         <p className="mt-2 text-sm text-tinta-suave">{producto.descripcion}</p>
         <p className="mt-2 text-lg font-black text-fuego">
           {formatearPrecio(producto.precio)}

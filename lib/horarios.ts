@@ -40,12 +40,17 @@ function aMinutos(hhmm: string): number {
   return h * 60 + m;
 }
 
+/**
+ * ¿Está `minutos` dentro del rango, mirando solo el tramo que pertenece a HOY?
+ * Un rango que cruza medianoche (ej. 21:00 a 01:00) cubre hoy solo desde
+ * `desde` hasta las 24:00; el tramo de madrugada lo aporta el chequeo del
+ * día anterior en `estaAbierto`. Para cerrar a medianoche usar "24:00".
+ */
 function dentroDelRango(minutos: number, rango: RangoHorario): boolean {
   const desde = aMinutos(rango.desde);
   const hasta = aMinutos(rango.hasta);
   if (hasta >= desde) return minutos >= desde && minutos < hasta;
-  // Rango que cruza medianoche (ej. 21:00 a 01:00)
-  return minutos >= desde || minutos < hasta;
+  return minutos >= desde;
 }
 
 export function estaAbierto(fecha: Date = new Date()): boolean {

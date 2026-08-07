@@ -37,8 +37,16 @@ export type PedidoEntrante = {
   /** Clave generada por el cliente para evitar pedidos duplicados por doble tap */
   claveIdempotencia: string;
   modoEntrega: ModoEntrega;
+  /** Zona de envío elegida (solo si hay zonas configuradas y es delivery) */
+  zonaId?: string;
   items: ItemCarrito[];
   aclaracionGeneral?: string;
+  /**
+   * Total que el cliente vio al confirmar. Si el servidor recalcula otro
+   * (cambió el catálogo), rechaza con los precios nuevos en vez de cobrar
+   * distinto sin avisar.
+   */
+  totalEsperado: number;
   cliente: {
     nombre: string;
     telefono: string;
@@ -63,6 +71,8 @@ export type ItemConfirmado = {
 export type PedidoConfirmado = {
   numero: string;
   modoEntrega: ModoEntrega;
+  /** Nombre de la zona de envío, si el negocio cobra por zonas */
+  zonaEnvio?: string;
   items: ItemConfirmado[];
   aclaracionGeneral?: string;
   cliente: PedidoEntrante["cliente"];
@@ -84,4 +94,9 @@ export type PedidoConfirmado = {
 
 export type RespuestaApiPedidos =
   | { ok: true; pedido: PedidoConfirmado }
-  | { ok: false; error: string };
+  | {
+      ok: false;
+      error: string;
+      /** Presente cuando el catálogo cambió: el cliente actualiza su carrito */
+      preciosActualizados?: { productoId: string; precio: number }[];
+    };

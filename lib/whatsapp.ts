@@ -23,7 +23,7 @@ export function mensajeRespaldoPedido(pedido: PedidoConfirmado): string {
     ``,
     `Cliente: ${pedido.cliente.nombre} — Tel: ${pedido.cliente.telefono}`,
     pedido.modoEntrega === "delivery"
-      ? `Delivery a: ${pedido.cliente.direccion}${pedido.cliente.referencias ? ` (${pedido.cliente.referencias})` : ""}`
+      ? `Delivery a: ${pedido.cliente.direccion}${pedido.cliente.referencias ? ` (${pedido.cliente.referencias})` : ""}${pedido.zonaEnvio ? ` — Zona: ${pedido.zonaEnvio}` : ""}`
       : `Retiro por el local`,
     ``,
     ...pedido.items.map(

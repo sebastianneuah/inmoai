@@ -67,7 +67,13 @@ function armarPayload(pedido: PedidoConfirmado) {
         phone: pedido.cliente.telefono,
         address:
           pedido.modoEntrega === "delivery"
-            ? `${pedido.cliente.direccion}${pedido.cliente.referencias ? ` (${pedido.cliente.referencias})` : ""}`
+            ? [
+                pedido.cliente.direccion,
+                pedido.cliente.referencias ? `(${pedido.cliente.referencias})` : "",
+                pedido.zonaEnvio ? `Zona: ${pedido.zonaEnvio}` : "",
+              ]
+                .filter(Boolean)
+                .join(" ")
             : null,
       },
       shippingCost: pedido.costoEnvio,

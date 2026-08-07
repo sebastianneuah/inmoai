@@ -27,8 +27,8 @@ Abrí http://localhost:3000. Con `FUDO_MODE=mock` no hace falta ninguna credenci
 
 | Variable | Qué es |
 |---|---|
-| `ALIAS_MP` | Alias de Mercado Pago que se muestra al cliente para transferir |
-| `WHATSAPP_NUMERO` | WhatsApp del local, formato internacional sin `+` (ej. `54911...`) |
+| `ALIAS_MP` | Alias de Mercado Pago que se muestra al cliente para transferir (⚠️ si falta, el cliente no ve el alias) |
+| `WHATSAPP_NUMERO` | WhatsApp del local, formato internacional sin `+` (ej. `54911...`) — recibe comprobantes y pedidos de respaldo |
 | `FUDO_MODE` | `mock` (sin credenciales) o `live` (API real de Fudo) |
 | `FUDO_CLIENT_ID` | Credencial que entrega Fudo al habilitar la integración |
 | `FUDO_CLIENT_SECRET` | Credencial que entrega Fudo (⚠️ nunca commitearla) |
@@ -44,7 +44,8 @@ Abrí http://localhost:3000. Con `FUDO_MODE=mock` no hace falta ninguna credenci
     conviene ajustarlo cada semana o dejar margen de seguridad.
 - **Pedido mínimo de delivery**: `entrega.pedidoMinimoDelivery` (en pesos).
 - **Costo de envío**: `entrega.envio.costoUnico`. Para cobrar por zona, cargar
-  `entrega.envio.zonas` (la estructura ya está lista).
+  `entrega.envio.zonas`: el checkout muestra automáticamente el selector de zona
+  (obligatorio) y cobra el costo de la zona elegida.
 - **Tiempos estimados** y **dirección del local**: en `entrega`.
 
 Fuera de horario la página se ve igual, pero el botón de confirmar se reemplaza

@@ -9,7 +9,10 @@
 export type RangoHorario = {
   /** Hora de apertura en formato "HH:MM" (24 hs) */
   desde: string;
-  /** Hora de cierre en formato "HH:MM" (24 hs). Si es menor a `desde`, cruza medianoche. */
+  /**
+   * Hora de cierre en formato "HH:MM" (24 hs). Para cerrar a medianoche usar
+   * "24:00". Si es menor a `desde`, el rango cruza medianoche (ej. 21:00 a 01:00).
+   */
   hasta: string;
 };
 
@@ -38,7 +41,7 @@ export const NEGOCIO = {
     3: [{ desde: "11:00", hasta: "23:00" }], // miércoles
     4: [{ desde: "11:00", hasta: "23:00" }], // jueves
     5: [{ desde: "11:00", hasta: "16:30" }], // viernes: cierra antes de Shabat
-    6: [{ desde: "21:30", hasta: "23:59" }], // sábado: reabre después de Shabat
+    6: [{ desde: "21:30", hasta: "24:00" }], // sábado: reabre después de Shabat
   } as Record<DiaSemana, RangoHorario[]>,
 
   /** Nombres de los días para mostrar "abrimos el …" */
