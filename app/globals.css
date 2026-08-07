@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white text-tinta antialiased;
+  }
+  /* Foco visible para navegación por teclado, en rojo de marca */
+  :focus-visible {
+    @apply outline-none ring-2 ring-fuego ring-offset-2;
+  }
+}
+
+@layer utilities {
+  /* Oculta la barra de scroll de las pestañas sin deshabilitar el scroll */
+  .sin-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .sin-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

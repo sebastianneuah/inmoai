@@ -1,0 +1,221 @@
+{
+  "_comentario": "Catálogo local de prueba con la MISMA estructura JSON:API que devuelve la API de Fudo (ProductCategory / Product). Cuando la API esté habilitada, la capa de sincronización reemplaza este archivo sin tocar el resto del código. Los precios son de ejemplo. Reemplazar por el catálogo real (~252 SKUs) cuando el dueño lo pase.",
+  "categorias": {
+    "data": [
+      { "id": "1", "type": "ProductCategory", "attributes": { "name": "Combos Panizados", "position": 1 } },
+      { "id": "2", "type": "ProductCategory", "attributes": { "name": "Combos Crudos", "position": 2 } },
+      { "id": "3", "type": "ProductCategory", "attributes": { "name": "Combos Sin Queso", "position": 3 } },
+      { "id": "4", "type": "ProductCategory", "attributes": { "name": "Rolls x10", "position": 4 } },
+      { "id": "5", "type": "ProductCategory", "attributes": { "name": "Entradas", "position": 5 } },
+      { "id": "6", "type": "ProductCategory", "attributes": { "name": "Bebidas", "position": 6 } }
+    ]
+  },
+  "productos": {
+    "data": [
+      {
+        "id": "101",
+        "type": "Product",
+        "attributes": {
+          "name": "Combo Panizado 30 piezas",
+          "description": "30 piezas panizadas crocantes. Selección de la casa con salmón grillado, philadelphia y palta. Kosher.",
+          "price": 32000,
+          "active": true,
+          "enabled": true
+        },
+        "relationships": { "productCategory": { "data": { "id": "1", "type": "ProductCategory" } } }
+      },
+      {
+        "id": "102",
+        "type": "Product",
+        "attributes": {
+          "name": "Combo Panizado 50 piezas",
+          "description": "50 piezas panizadas para compartir. Ideal 3-4 personas. Kosher.",
+          "price": 49000,
+          "active": true,
+          "enabled": true
+        },
+        "relationships": { "productCategory": { "data": { "id": "1", "type": "ProductCategory" } } }
+      },
+      {
+        "id": "201",
+        "type": "Product",
+        "attributes": {
+          "name": "Combo Crudo 30 piezas",
+          "description": "30 piezas con salmón crudo: niguiris, sashimi rolls y makis. Kosher.",
+          "price": 36000,
+          "active": true,
+          "enabled": true
+        },
+        "relationships": { "productCategory": { "data": { "id": "2", "type": "ProductCategory" } } }
+      },
+      {
+        "id": "202",
+        "type": "Product",
+        "attributes": {
+          "name": "Combo Crudo 50 piezas",
+          "description": "50 piezas con salmón crudo, corte grueso. Ideal 3-4 personas. Kosher.",
+          "price": 55000,
+          "active": true,
+          "enabled": true
+        },
+        "relationships": { "productCategory": { "data": { "id": "2", "type": "ProductCategory" } } }
+      },
+      {
+        "id": "301",
+        "type": "Product",
+        "attributes": {
+          "name": "Combo Sin Queso 30 piezas",
+          "description": "30 piezas sin lácteos: palta, salmón, pepino y sésamo. Apto besarí. Kosher.",
+          "price": 33000,
+          "active": true,
+          "enabled": true
+        },
+        "relationships": { "productCategory": { "data": { "id": "3", "type": "ProductCategory" } } }
+      },
+      {
+        "id": "302",
+        "type": "Product",
+        "attributes": {
+          "name": "Combo Sin Queso 50 piezas",
+          "description": "50 piezas sin lácteos para compartir. Apto besarí. Kosher.",
+          "price": 51000,
+          "active": true,
+          "enabled": true
+        },
+        "relationships": { "productCategory": { "data": { "id": "3", "type": "ProductCategory" } } }
+      },
+      {
+        "id": "401",
+        "type": "Product",
+        "attributes": {
+          "name": "Roll Salmón Grillado x10",
+          "description": "10 piezas de salmón grillado con philadelphia y verdeo.",
+          "price": 11500,
+          "active": true,
+          "enabled": true
+        },
+        "relationships": { "productCategory": { "data": { "id": "4", "type": "ProductCategory" } } }
+      },
+      {
+        "id": "402",
+        "type": "Product",
+        "attributes": {
+          "name": "Roll Philadelphia x10",
+          "description": "10 piezas clásicas de salmón crudo, philadelphia y palta.",
+          "price": 12000,
+          "active": true,
+          "enabled": true
+        },
+        "relationships": { "productCategory": { "data": { "id": "4", "type": "ProductCategory" } } }
+      },
+      {
+        "id": "403",
+        "type": "Product",
+        "attributes": {
+          "name": "Roll Panizado x10",
+          "description": "10 piezas panizadas bien crocantes con salmón y palta.",
+          "price": 11000,
+          "active": true,
+          "enabled": true
+        },
+        "relationships": { "productCategory": { "data": { "id": "4", "type": "ProductCategory" } } }
+      },
+      {
+        "id": "404",
+        "type": "Product",
+        "attributes": {
+          "name": "Roll Veggie x10",
+          "description": "10 piezas con palta, pepino, zanahoria y sésamo. Sin pescado.",
+          "price": 9000,
+          "active": true,
+          "enabled": true
+        },
+        "relationships": { "productCategory": { "data": { "id": "4", "type": "ProductCategory" } } }
+      },
+      {
+        "id": "405",
+        "type": "Product",
+        "attributes": {
+          "name": "Roll Sin Queso x10",
+          "description": "10 piezas de salmón y palta, sin lácteos. Apto besarí.",
+          "price": 11500,
+          "active": false,
+          "enabled": true
+        },
+        "relationships": { "productCategory": { "data": { "id": "4", "type": "ProductCategory" } } }
+      },
+      {
+        "id": "501",
+        "type": "Product",
+        "attributes": {
+          "name": "Sopa de miso",
+          "description": "Sopa de miso con tofu, alga wakame y verdeo.",
+          "price": 5500,
+          "active": true,
+          "enabled": true
+        },
+        "relationships": { "productCategory": { "data": { "id": "5", "type": "ProductCategory" } } }
+      },
+      {
+        "id": "502",
+        "type": "Product",
+        "attributes": {
+          "name": "Gyozas de verdura x6",
+          "description": "6 empanaditas japonesas de verdura a la plancha con salsa de soja.",
+          "price": 7500,
+          "active": true,
+          "enabled": true
+        },
+        "relationships": { "productCategory": { "data": { "id": "5", "type": "ProductCategory" } } }
+      },
+      {
+        "id": "503",
+        "type": "Product",
+        "attributes": {
+          "name": "Ensalada de palta y salmón",
+          "description": "Palta, salmón grillado, mix de verdes y sésamo tostado.",
+          "price": 9500,
+          "active": true,
+          "enabled": true
+        },
+        "relationships": { "productCategory": { "data": { "id": "5", "type": "ProductCategory" } } }
+      },
+      {
+        "id": "601",
+        "type": "Product",
+        "attributes": {
+          "name": "Agua mineral 500ml",
+          "description": "Con o sin gas (aclaralo en el pedido).",
+          "price": 2000,
+          "active": true,
+          "enabled": true
+        },
+        "relationships": { "productCategory": { "data": { "id": "6", "type": "ProductCategory" } } }
+      },
+      {
+        "id": "602",
+        "type": "Product",
+        "attributes": {
+          "name": "Gaseosa lata 354ml",
+          "description": "Coca-Cola, Sprite o Fanta (aclaralo en el pedido).",
+          "price": 2500,
+          "active": true,
+          "enabled": true
+        },
+        "relationships": { "productCategory": { "data": { "id": "6", "type": "ProductCategory" } } }
+      },
+      {
+        "id": "603",
+        "type": "Product",
+        "attributes": {
+          "name": "Limonada de la casa 500ml",
+          "description": "Limonada con jengibre y menta, hecha en el local.",
+          "price": 4000,
+          "active": true,
+          "enabled": true
+        },
+        "relationships": { "productCategory": { "data": { "id": "6", "type": "ProductCategory" } } }
+      }
+    ]
+  }
+}
