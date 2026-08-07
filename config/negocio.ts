@@ -34,14 +34,18 @@ export const NEGOCIO = {
    * estos horarios los ajusta el dueño acá (por ejemplo, cada viernes a la
    * mañana, o una vez por temporada con un margen de seguridad).
    */
+  // Horarios reales importados de la página de Fudo del local (delivery)
   horarios: {
-    0: [{ desde: "11:00", hasta: "23:00" }], // domingo
-    1: [{ desde: "11:00", hasta: "23:00" }], // lunes
-    2: [{ desde: "11:00", hasta: "23:00" }], // martes
-    3: [{ desde: "11:00", hasta: "23:00" }], // miércoles
-    4: [{ desde: "11:00", hasta: "23:00" }], // jueves
-    5: [{ desde: "11:00", hasta: "16:30" }], // viernes: cierra antes de Shabat
-    6: [{ desde: "21:30", hasta: "24:00" }], // sábado: reabre después de Shabat
+    0: [
+      { desde: "10:30", hasta: "16:00" },
+      { desde: "18:00", hasta: "23:30" },
+    ], // domingo
+    1: [{ desde: "10:30", hasta: "23:30" }], // lunes
+    2: [{ desde: "10:30", hasta: "23:30" }], // martes
+    3: [{ desde: "10:30", hasta: "23:30" }], // miércoles
+    4: [{ desde: "10:30", hasta: "23:30" }], // jueves
+    5: [{ desde: "10:00", hasta: "16:00" }], // viernes: cierra antes de Shabat
+    6: [{ desde: "20:45", hasta: "00:30" }], // sábado: reabre después de Shabat (cruza medianoche)
   } as Record<DiaSemana, RangoHorario[]>,
 
   /** Nombres de los días para mostrar "abrimos el …" */
@@ -56,8 +60,8 @@ export const NEGOCIO = {
   ],
 
   entrega: {
-    /** Pedido mínimo para delivery, en pesos. 0 = sin mínimo. */
-    pedidoMinimoDelivery: 15000,
+    /** Pedido mínimo para delivery, en pesos. 0 = sin mínimo (así lo tiene hoy el local en Fudo). */
+    pedidoMinimoDelivery: 0,
 
     /**
      * Costo de envío. Arranca con costo único; la estructura de zonas queda
@@ -65,8 +69,8 @@ export const NEGOCIO = {
      * y el checkout las ofrece como selector.
      */
     envio: {
-      /** Costo por defecto si no hay zonas o el cliente no eligió zona */
-      costoUnico: 2500,
+      /** Costo por defecto si no hay zonas o el cliente no eligió zona (valor actual del local en Fudo) */
+      costoUnico: 1000,
       /** Zonas opcionales: si el array tiene elementos, el cliente elige una. */
       zonas: [] as { id: string; nombre: string; costo: number }[],
     },

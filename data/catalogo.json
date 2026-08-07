@@ -1,221 +1,2577 @@
 {
-  "_comentario": "Catálogo local de prueba con la MISMA estructura JSON:API que devuelve la API de Fudo (ProductCategory / Product). Cuando la API esté habilitada, la capa de sincronización reemplaza este archivo sin tocar el resto del código. Los precios son de ejemplo. Reemplazar por el catálogo real (~252 SKUs) cuando el dueño lo pase.",
-  "categorias": {
-    "data": [
-      { "id": "1", "type": "ProductCategory", "attributes": { "name": "Combos Panizados", "position": 1 } },
-      { "id": "2", "type": "ProductCategory", "attributes": { "name": "Combos Crudos", "position": 2 } },
-      { "id": "3", "type": "ProductCategory", "attributes": { "name": "Combos Sin Queso", "position": 3 } },
-      { "id": "4", "type": "ProductCategory", "attributes": { "name": "Rolls x10", "position": 4 } },
-      { "id": "5", "type": "ProductCategory", "attributes": { "name": "Entradas", "position": 5 } },
-      { "id": "6", "type": "ProductCategory", "attributes": { "name": "Bebidas", "position": 6 } }
-    ]
-  },
-  "productos": {
-    "data": [
-      {
-        "id": "101",
-        "type": "Product",
-        "attributes": {
-          "name": "Combo Panizado 30 piezas",
-          "description": "30 piezas panizadas crocantes. Selección de la casa con salmón grillado, philadelphia y palta. Kosher.",
-          "price": 32000,
-          "active": true,
-          "enabled": true
-        },
-        "relationships": { "productCategory": { "data": { "id": "1", "type": "ProductCategory" } } }
-      },
-      {
-        "id": "102",
-        "type": "Product",
-        "attributes": {
-          "name": "Combo Panizado 50 piezas",
-          "description": "50 piezas panizadas para compartir. Ideal 3-4 personas. Kosher.",
-          "price": 49000,
-          "active": true,
-          "enabled": true
-        },
-        "relationships": { "productCategory": { "data": { "id": "1", "type": "ProductCategory" } } }
-      },
-      {
-        "id": "201",
-        "type": "Product",
-        "attributes": {
-          "name": "Combo Crudo 30 piezas",
-          "description": "30 piezas con salmón crudo: niguiris, sashimi rolls y makis. Kosher.",
-          "price": 36000,
-          "active": true,
-          "enabled": true
-        },
-        "relationships": { "productCategory": { "data": { "id": "2", "type": "ProductCategory" } } }
-      },
-      {
-        "id": "202",
-        "type": "Product",
-        "attributes": {
-          "name": "Combo Crudo 50 piezas",
-          "description": "50 piezas con salmón crudo, corte grueso. Ideal 3-4 personas. Kosher.",
-          "price": 55000,
-          "active": true,
-          "enabled": true
-        },
-        "relationships": { "productCategory": { "data": { "id": "2", "type": "ProductCategory" } } }
-      },
-      {
-        "id": "301",
-        "type": "Product",
-        "attributes": {
-          "name": "Combo Sin Queso 30 piezas",
-          "description": "30 piezas sin lácteos: palta, salmón, pepino y sésamo. Apto besarí. Kosher.",
-          "price": 33000,
-          "active": true,
-          "enabled": true
-        },
-        "relationships": { "productCategory": { "data": { "id": "3", "type": "ProductCategory" } } }
-      },
-      {
-        "id": "302",
-        "type": "Product",
-        "attributes": {
-          "name": "Combo Sin Queso 50 piezas",
-          "description": "50 piezas sin lácteos para compartir. Apto besarí. Kosher.",
-          "price": 51000,
-          "active": true,
-          "enabled": true
-        },
-        "relationships": { "productCategory": { "data": { "id": "3", "type": "ProductCategory" } } }
-      },
-      {
-        "id": "401",
-        "type": "Product",
-        "attributes": {
-          "name": "Roll Salmón Grillado x10",
-          "description": "10 piezas de salmón grillado con philadelphia y verdeo.",
-          "price": 11500,
-          "active": true,
-          "enabled": true
-        },
-        "relationships": { "productCategory": { "data": { "id": "4", "type": "ProductCategory" } } }
-      },
-      {
-        "id": "402",
-        "type": "Product",
-        "attributes": {
-          "name": "Roll Philadelphia x10",
-          "description": "10 piezas clásicas de salmón crudo, philadelphia y palta.",
-          "price": 12000,
-          "active": true,
-          "enabled": true
-        },
-        "relationships": { "productCategory": { "data": { "id": "4", "type": "ProductCategory" } } }
-      },
-      {
-        "id": "403",
-        "type": "Product",
-        "attributes": {
-          "name": "Roll Panizado x10",
-          "description": "10 piezas panizadas bien crocantes con salmón y palta.",
-          "price": 11000,
-          "active": true,
-          "enabled": true
-        },
-        "relationships": { "productCategory": { "data": { "id": "4", "type": "ProductCategory" } } }
-      },
-      {
-        "id": "404",
-        "type": "Product",
-        "attributes": {
-          "name": "Roll Veggie x10",
-          "description": "10 piezas con palta, pepino, zanahoria y sésamo. Sin pescado.",
-          "price": 9000,
-          "active": true,
-          "enabled": true
-        },
-        "relationships": { "productCategory": { "data": { "id": "4", "type": "ProductCategory" } } }
-      },
-      {
-        "id": "405",
-        "type": "Product",
-        "attributes": {
-          "name": "Roll Sin Queso x10",
-          "description": "10 piezas de salmón y palta, sin lácteos. Apto besarí.",
-          "price": 11500,
-          "active": false,
-          "enabled": true
-        },
-        "relationships": { "productCategory": { "data": { "id": "4", "type": "ProductCategory" } } }
-      },
-      {
-        "id": "501",
-        "type": "Product",
-        "attributes": {
-          "name": "Sopa de miso",
-          "description": "Sopa de miso con tofu, alga wakame y verdeo.",
-          "price": 5500,
-          "active": true,
-          "enabled": true
-        },
-        "relationships": { "productCategory": { "data": { "id": "5", "type": "ProductCategory" } } }
-      },
-      {
-        "id": "502",
-        "type": "Product",
-        "attributes": {
-          "name": "Gyozas de verdura x6",
-          "description": "6 empanaditas japonesas de verdura a la plancha con salsa de soja.",
-          "price": 7500,
-          "active": true,
-          "enabled": true
-        },
-        "relationships": { "productCategory": { "data": { "id": "5", "type": "ProductCategory" } } }
-      },
-      {
-        "id": "503",
-        "type": "Product",
-        "attributes": {
-          "name": "Ensalada de palta y salmón",
-          "description": "Palta, salmón grillado, mix de verdes y sésamo tostado.",
-          "price": 9500,
-          "active": true,
-          "enabled": true
-        },
-        "relationships": { "productCategory": { "data": { "id": "5", "type": "ProductCategory" } } }
-      },
-      {
-        "id": "601",
-        "type": "Product",
-        "attributes": {
-          "name": "Agua mineral 500ml",
-          "description": "Con o sin gas (aclaralo en el pedido).",
-          "price": 2000,
-          "active": true,
-          "enabled": true
-        },
-        "relationships": { "productCategory": { "data": { "id": "6", "type": "ProductCategory" } } }
-      },
-      {
-        "id": "602",
-        "type": "Product",
-        "attributes": {
-          "name": "Gaseosa lata 354ml",
-          "description": "Coca-Cola, Sprite o Fanta (aclaralo en el pedido).",
-          "price": 2500,
-          "active": true,
-          "enabled": true
-        },
-        "relationships": { "productCategory": { "data": { "id": "6", "type": "ProductCategory" } } }
-      },
-      {
-        "id": "603",
-        "type": "Product",
-        "attributes": {
-          "name": "Limonada de la casa 500ml",
-          "description": "Limonada con jengibre y menta, hecha en el local.",
-          "price": 4000,
-          "active": true,
-          "enabled": true
-        },
-        "relationships": { "productCategory": { "data": { "id": "6", "type": "ProductCategory" } } }
+ "_comentario": "Catálogo REAL de Abraham importado de la API pública del menú de Fudo (integrations.fu.do, cuenta abrahambagels) con la estructura JSON:API que usa la app. Regenerar con el script de importación cuando cambie el menú; cuando la API de inyección esté habilitada, la sincronización lo reemplaza.",
+ "categorias": {
+  "data": [
+   {
+    "id": "1",
+    "type": "ProductCategory",
+    "attributes": {
+     "name": "PROMOCIONES",
+     "position": 100000
+    }
+   },
+   {
+    "id": "11",
+    "type": "ProductCategory",
+    "attributes": {
+     "name": "ENTRADAS",
+     "position": 125000
+    }
+   },
+   {
+    "id": "8",
+    "type": "ProductCategory",
+    "attributes": {
+     "name": "COMBOS SUSHI CLASICO",
+     "position": 150000
+    }
+   },
+   {
+    "id": "2",
+    "type": "ProductCategory",
+    "attributes": {
+     "name": "ENSALADAS DE SUSHI",
+     "position": 200000
+    }
+   },
+   {
+    "id": "3",
+    "type": "ProductCategory",
+    "attributes": {
+     "name": "HAMBURGUESA Y PANCHOS",
+     "position": 300000
+    }
+   },
+   {
+    "id": "5",
+    "type": "ProductCategory",
+    "attributes": {
+     "name": "BAGELS",
+     "position": 500000
+    }
+   },
+   {
+    "id": "9",
+    "type": "ProductCategory",
+    "attributes": {
+     "name": "PLATOS CALIENTE",
+     "position": 525000
+    }
+   },
+   {
+    "id": "10",
+    "type": "ProductCategory",
+    "attributes": {
+     "name": "TEMAKIS",
+     "position": 537500
+    }
+   },
+   {
+    "id": "14",
+    "type": "ProductCategory",
+    "attributes": {
+     "name": "CEVICHE",
+     "position": 543750
+    }
+   },
+   {
+    "id": "6",
+    "type": "ProductCategory",
+    "attributes": {
+     "name": "ROLLS PREMIUM",
+     "position": 600000
+    }
+   },
+   {
+    "id": "7",
+    "type": "ProductCategory",
+    "attributes": {
+     "name": "HOT ROLLS",
+     "position": 700000
+    }
+   },
+   {
+    "id": "13",
+    "type": "ProductCategory",
+    "attributes": {
+     "name": "ROLLS VEGETARIANOS",
+     "position": 775000
+    }
+   },
+   {
+    "id": "4",
+    "type": "ProductCategory",
+    "attributes": {
+     "name": "NIGIRIS SASHIMIS Y GEISHAS",
+     "position": 850000
+    }
+   },
+   {
+    "id": "15",
+    "type": "ProductCategory",
+    "attributes": {
+     "name": "EXTRAS",
+     "position": 975000
+    }
+   },
+   {
+    "id": "12",
+    "type": "ProductCategory",
+    "attributes": {
+     "name": "POSTRES",
+     "position": 1550000
+    }
+   },
+   {
+    "id": "16",
+    "type": "ProductCategory",
+    "attributes": {
+     "name": "BEBIDAS",
+     "position": 1600000
+    }
+   }
+  ]
+ },
+ "productos": {
+  "data": [
+   {
+    "id": "200",
+    "type": "Product",
+    "attributes": {
+     "name": "Promo 30 piezas DE SUSHI",
+     "description": "PROMO DE 30 PIEZAS A ELECCION DEL CLIENTE!POR FAVOR SELECCIONAR ENTRE LAS OPCIONES Y ESCRIBIR LAS SALSAS EN COMENTARIOS",
+     "price": 38500,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/200.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "1",
+       "type": "ProductCategory"
       }
-    ]
-  }
+     }
+    }
+   },
+   {
+    "id": "198",
+    "type": "Product",
+    "attributes": {
+     "name": "Promo 50 piezas de SUSHI",
+     "description": "50 PIEZAS A ELECCION DEL CLIENTE!,POR FAVOR SELECCIONAR ENTRE LAS OPCIONES Y ESCRIBIR LAS SALSAS EN COMENTARIOS",
+     "price": 60500,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/198.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "1",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "199",
+    "type": "Product",
+    "attributes": {
+     "name": "Promo 100 piezas DE SUSHI",
+     "description": "100 PIEZAS A ELECCION DEL CLIENTE!POR FAVOR SELECCIONAR ENTRE LAS OPCIONES Y ESCRIBIR LAS SALSAS EN COMENTARIOS",
+     "price": 110000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/199.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "1",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "253",
+    "type": "Product",
+    "attributes": {
+     "name": "PROMO 15 PIEZAS SUSHI APTO MEDIODIA",
+     "description": "PROMO UNICAMENTE PARA EL MEDIODIA!,LA PROMO INCLUYE:\n\n5 NEW YORK\n5 NEW YORK PHILA\n5 PHILA",
+     "price": 15400,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/253.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "1",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "255",
+    "type": "Product",
+    "attributes": {
+     "name": "Promo 30 piezas DE SUSHI APTO SOLO MEDIODIA",
+     "description": "10 NEW YORK PHILA\n10 PHILA\n10 NEW YORK",
+     "price": 30800,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/255.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "1",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "264",
+    "type": "Product",
+    "attributes": {
+     "name": "CHIRASHI",
+     "description": "Salmon ahumado con lluvia de praline \nSalmón crudo con lluvia de sesamo blanco \nRosa de palta quemada \nSalmón flambeado \nFinos cortes de pepino en vinagre\nAlgas tempurizadas\nA base de arroz",
+     "price": 27000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/264.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "2",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "197",
+    "type": "Product",
+    "attributes": {
+     "name": "ENSALADA SALMON CRUDO CHICA",
+     "description": "Ensalada de salmón crudo, queso y palta a base de arroz de sushi. También llamada Nestor de salmón o poke bowl de salmón.",
+     "price": 18000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/197.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "2",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "251",
+    "type": "Product",
+    "attributes": {
+     "name": "ENSALADA MIXTA CHICA",
+     "description": "Ensalada mixta (salmón panizado, salmón crudo, queso y palta) a base de arroz de sushi. También llamada Nestor mixto o poke bowl mixto",
+     "price": 19500,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/251.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "2",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "83",
+    "type": "Product",
+    "attributes": {
+     "name": "ENSALADA SALMON PANIZADA CHICA",
+     "description": "Ensalada de salmón panizado, queso y palta a base de arroz de sushi. También llamada Nestor de salmón panizado o poke bowl panizado.",
+     "price": 19500,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/83.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "2",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "25",
+    "type": "Product",
+    "attributes": {
+     "name": "ENSALADA ATUN CHICA",
+     "description": "ENSALADA  DE ATUN QUESO PALTA A BASE DE ARROZ DE SUSHI,TAMBIEN LLAMADO NESTOR DE ATUN CHICA O POKE BOWL ATUN",
+     "price": 19500,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/25.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "2",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "258",
+    "type": "Product",
+    "attributes": {
+     "name": "ENSALADA VEGETARIANA",
+     "description": "ENSALADA DE TOMATE,ARROZ,QUESO,PALTA Y PEPINO A BASE DE ARROZ!",
+     "price": 16000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/258.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "2",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "138",
+    "type": "Product",
+    "attributes": {
+     "name": "ENSALADA SOLO SALMON PANIZADO CHICA",
+     "description": "ENSALADA SOLO SALMON PANIZADO A BASE DE ARROZ DE SUSHI",
+     "price": 23000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/138.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "2",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "86",
+    "type": "Product",
+    "attributes": {
+     "name": "ENSALADA SALMON AHUMADO CHICA",
+     "description": "Ensalada de salmón ahumado, queso y palta a base de arroz de sushi. También llamada Nestor de salmón ahumado o poke bowl de salmón ahumado",
+     "price": 21000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/86.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "2",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "24",
+    "type": "Product",
+    "attributes": {
+     "name": "ENSALADA SALMON  CRUDO GRANDE",
+     "description": "Ensalada de salmón crudo, queso y palta a base de arroz de sushi. También llamada Nestor de salmón o poke bowl de salmón.",
+     "price": 22000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/24.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "2",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "252",
+    "type": "Product",
+    "attributes": {
+     "name": "ENSALADA SALMON MIXTA GRANDE",
+     "description": "Ensalada mixta (salmón panizado, salmón crudo, queso y palta) a base de arroz de sushi. También llamada Nestor mixto o poke bowl mixto",
+     "price": 23500,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/252.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "2",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "84",
+    "type": "Product",
+    "attributes": {
+     "name": "ENSALADA SALMON PANIZADA GRANDE",
+     "description": "Ensalada de salmón panizado, queso y palta a base de arroz de sushi. También llamada Nestor de salmón panizado o poke bowl panizado.",
+     "price": 23500,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/84.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "2",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "26",
+    "type": "Product",
+    "attributes": {
+     "name": "ENSALADA ATUN GRANDE",
+     "description": "ENSALADA  DE ATUN QUESO PALTA A BASE DE ARROZ DE SUSHI!,TAMBIEN CONOCIDO CON NESTOR DE ATUN GRANDE O POKE BOWL DE ATUN",
+     "price": 23500,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/26.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "2",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "88",
+    "type": "Product",
+    "attributes": {
+     "name": "ENSALADA SOLO SALMON GRANDE",
+     "description": "Ensalada de solo salmón crudo a base de arroz de sushi. También llamada Nestor de solo salmón o poke bowl de solo salmón.",
+     "price": 24000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/88.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "2",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "85",
+    "type": "Product",
+    "attributes": {
+     "name": "ENSALADA PANIZADA SOLO SALMON GRANDE",
+     "description": "Ensalada de solo salmón panizado a base de arroz de sushi. También llamada Nestor solo salmón panizado o poke bowl solo salmón panizado. (sin queso).",
+     "price": 29000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/85.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "2",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "126",
+    "type": "Product",
+    "attributes": {
+     "name": "HAMBURGUESA CLASICA",
+     "description": "HAMBURGUESA DE SUSHI CON TAPAS DE ARROZ CON SALMON CRUDO, PALTA Y QUESO",
+     "price": 20000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/126.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "3",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "81",
+    "type": "Product",
+    "attributes": {
+     "name": "HAMBURGUESA DE TAPAS PANIZADAS CON SALMÓN CRUDO PALTA Y QUESO",
+     "description": "HAMBURGUESA DE SUSHI CON TAPAS DE ARROZ PANIZADA CON SALMON CRUDO, PALTA Y QUESO",
+     "price": 21000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/81.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "3",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "245",
+    "type": "Product",
+    "attributes": {
+     "name": "PANCHO SUSHI CON SALMÓN PANIZADO PALTA Y QUESO",
+     "description": "PANCHO SUSHI CON TAPAS PANIZADAS SALMON \nCrudo ,PALTA Y QUESO",
+     "price": 23000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/245.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "3",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "254",
+    "type": "Product",
+    "attributes": {
+     "name": "PANCHO SUSHI CON SALMON CRUDO",
+     "description": "PANCHO DE SUSHI CON TAPAS PANIZADAS ,CON SALMON CRUDO PALTA Y QUESO",
+     "price": 23000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/254.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "3",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "36",
+    "type": "Product",
+    "attributes": {
+     "name": "GEISHA",
+     "description": "PALTA Y QUESO ENVUELTO EN SALMON",
+     "price": 2000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/36.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "4",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "32",
+    "type": "Product",
+    "attributes": {
+     "name": "NIGUIRI",
+     "description": "BOCADO DE ARROZ CUBIERTO DE SALMON",
+     "price": 2000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/32.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "4",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "127",
+    "type": "Product",
+    "attributes": {
+     "name": "NIGUIRI AHUMADO",
+     "description": "BOCADO DE ARROZ CUBIERTO EN SALMON AHUMADO",
+     "price": 2000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/127.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "4",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "146",
+    "type": "Product",
+    "attributes": {
+     "name": "NIGUIRI CORONADO",
+     "description": "LAMINA DE SALMON ENVUELTA EN ARROZ CON TARTAR,SALSA MARACUYA Y BATATAS",
+     "price": 2000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/146.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "4",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "33",
+    "type": "Product",
+    "attributes": {
+     "name": "NIGUIRI FLAMBEADO",
+     "description": "BOCADO DE ARROZ CUBIERTO CON SALMON FLAMBEADO",
+     "price": 2000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/33.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "4",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "147",
+    "type": "Product",
+    "attributes": {
+     "name": "NIGUIRI SPICY",
+     "description": "NIGUIRI CON TOGARASHI",
+     "price": 2000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/147.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "4",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "34",
+    "type": "Product",
+    "attributes": {
+     "name": "SASHIMI X 3 UNIDADES",
+     "description": "3 UNIDADES DE \nCORTE DE SALMON CRUDO",
+     "price": 6000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/34.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "4",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "35",
+    "type": "Product",
+    "attributes": {
+     "name": "SASHIMI FLAMBEADO X 3 UNIDADES",
+     "description": "3 UNIDADES  DE \nCORTE DE SALMON FLAMBEADOS",
+     "price": 6000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/35.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "4",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "148",
+    "type": "Product",
+    "attributes": {
+     "name": "SASHIMI SPICY X 3 UNIDADES",
+     "description": "3 UNIDADES DE CORTE DE SALMON CRUDO CON TOGARASHI",
+     "price": 6000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/148.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "4",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "262",
+    "type": "Product",
+    "attributes": {
+     "name": "BANDEJA ATUN ROJO",
+     "description": "5 SASHIMIS ATUN ROJO\n5 NIGUIRIS ATUN ROJO",
+     "price": 28000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/262.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "4",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "11",
+    "type": "Product",
+    "attributes": {
+     "name": "BAGEL SALMON PALTA QUESO",
+     "description": "BAGEL CON SALMON PALTA Y QUESO",
+     "price": 18000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/11.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "5",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "12",
+    "type": "Product",
+    "attributes": {
+     "name": "BAGEL ATUN PEPINO Y QUESO CREMA",
+     "description": "BAGEL DE ATUN PALTA Y QUESO",
+     "price": 17000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/12.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "5",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "94",
+    "type": "Product",
+    "attributes": {
+     "name": "DUBLIN X 10",
+     "description": "Roll premium con SALMÓN PANIZADO de relleno: salmón panizado y queso, coronado con guacamole. \nSe puede sacar el queso y/o sacar el guacamole",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/94.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "93",
+    "type": "Product",
+    "attributes": {
+     "name": "DUBLIN X 5",
+     "description": "Roll premium con SALMÓN PANIZADO de relleno: salmón panizado y queso, coronado con guacamole. \nSe puede sacar el queso y/o sacar el guacamole",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/93.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "96",
+    "type": "Product",
+    "attributes": {
+     "name": "EILAT X 10",
+     "description": "ROLL DE SALMON Y PALTA ,CON COBERTURA DE SALMON CORONADO CON GUACAMOLE Y LLUVIA DE NACHOS",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/96.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "95",
+    "type": "Product",
+    "attributes": {
+     "name": "EILAT X 5",
+     "description": "Roll premium (NO panizado): salmón y palta, con cobertura de salmón, guacamole y lluvia de nachos. Sin queso \n.",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/95.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "162",
+    "type": "Product",
+    "attributes": {
+     "name": "FLORIDA X 10",
+     "description": "Roll premium con SALMÓN PANIZADO de relleno: salmón panizado y queso, con cobertura de salmón ahumado y lluvia de praliné. Lleva queso,SE PUEDE",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/162.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "163",
+    "type": "Product",
+    "attributes": {
+     "name": "FLORIDA X 5",
+     "description": "Roll premium con SALMÓN PANIZADO de relleno: salmón panizado y queso, con cobertura de salmón ahumado y lluvia de praliné. Lleva queso,SE PUEDE SACAR PRALINE !",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/163.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "108",
+    "type": "Product",
+    "attributes": {
+     "name": "GRECIA X 10",
+     "description": "Roll premium (NO panizado): palta y queso con tartar de salmón. Lleva queso (NO parve); se puede pedir SIN QUESO",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/108.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "107",
+    "type": "Product",
+    "attributes": {
+     "name": "GRECIA X 5",
+     "description": "Roll premium (NO panizado): palta y queso con tartar de salmón. Lleva queso (NO parve); se puede pedir SIN QUESO",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/107.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "102",
+    "type": "Product",
+    "attributes": {
+     "name": "HAWAII X 10",
+     "description": "Roll premium con SALMÓN PANIZADO de relleno: salmón panizado, queso y mango, con cobertura de salmón flambeado y salsa de miel y mostaza. Lleva queso",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/102.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "101",
+    "type": "Product",
+    "attributes": {
+     "name": "HAWAII X 5",
+     "description": "Roll premium con SALMÓN PANIZADO de relleno: salmón panizado, queso y mango, con cobertura de salmón flambeado y salsa de miel y mostaza. Lleva queso",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/101.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "100",
+    "type": "Product",
+    "attributes": {
+     "name": "JAMAICA X 10",
+     "description": "Roll premium con SALMÓN PANIZADO de relleno: salmón panizado y queso, con cobertura de palta y un toque de caramelo. Lleva queso",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/100.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "99",
+    "type": "Product",
+    "attributes": {
+     "name": "JAMAICA X 5",
+     "description": "Roll premium con SALMÓN PANIZADO de relleno: salmón panizado y queso, con cobertura de palta y un toque de caramelo. Lleva queso",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/99.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "106",
+    "type": "Product",
+    "attributes": {
+     "name": "MIAMI X 10",
+     "description": "Roll premium (NO panizado): queso y palta, con cobertura de salmón ahumado y lluvia de coco. Lleva queso ,SE PUEDE PEDIR SIN QUESO",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/106.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "236",
+    "type": "Product",
+    "attributes": {
+     "name": "MIAMIII X 5",
+     "description": "Roll premium (NO panizado): queso y palta, con cobertura de salmón ahumado y lluvia de coco. Lleva queso ,SE PUEDE PEDIR SIN QUESO",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/236.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "170",
+    "type": "Product",
+    "attributes": {
+     "name": "MILAN X 10",
+     "description": "Roll premium (NO panizado): salmón y queso envueltos en tamago, con lluvia de batatas crujientes y salsa de maracuyá. Lleva queso",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/170.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "171",
+    "type": "Product",
+    "attributes": {
+     "name": "MILAN X 5",
+     "description": "Roll premium (NO panizado): salmón y queso envueltos en tamago, con lluvia de batatas crujientes y salsa de maracuyá. Lleva queso,conocido como la pieza de tamago",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/171.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "92",
+    "type": "Product",
+    "attributes": {
+     "name": "NAPOLES X 10",
+     "description": "Roll premium (NO panizado): salmón y queso, cubierto con mango y salsa de maracuyá. Lleva queso (NO parve)",
+     "price": 12000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/92.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "91",
+    "type": "Product",
+    "attributes": {
+     "name": "NAPOLES X 5",
+     "description": "Roll premium (NO panizado): salmón y queso, cubierto con mango y salsa de maracuyá. Lleva queso (NO parve)",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/91.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "133",
+    "type": "Product",
+    "attributes": {
+     "name": "NEW YORK PHILA X 10",
+     "description": "NEW YORK PHILA — Roll clásico (NO panizado): salmón, palta y queso. Lleva queso (NO parve)",
+     "price": 11500,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/133.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "132",
+    "type": "Product",
+    "attributes": {
+     "name": "NEW YORK PHILA X 5",
+     "description": "NEW YORK PHILA — Roll clásico (NO panizado): salmón, palta y queso. Lleva queso (NO parve)",
+     "price": 5775,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/132.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "131",
+    "type": "Product",
+    "attributes": {
+     "name": "NEW YORK X 10",
+     "description": "NEW YORK — Roll clásico (NO panizado): salmón y palta. Sin queso",
+     "price": 11500,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/131.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "130",
+    "type": "Product",
+    "attributes": {
+     "name": "NEW YORK X 5",
+     "description": "NEW YORK — Roll clásico (NO panizado): salmón y palta. Sin queso",
+     "price": 5775,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/130.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "98",
+    "type": "Product",
+    "attributes": {
+     "name": "PARIS X 10",
+     "description": "Roll premium con SALMÓN PANIZADO de relleno: salmón panizado, queso y palta, con cobertura de salmón flambeado, salsa teriyaki y lluvia de batatas crocantes. Lleva queso",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/98.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "97",
+    "type": "Product",
+    "attributes": {
+     "name": "PARIS X 5",
+     "description": "Roll premium con SALMÓN PANIZADO de relleno: salmón panizado, queso y palta, con cobertura de salmón flambeado, salsa teriyaki y lluvia de batatas crocantes. Lleva queso",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/97.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "128",
+    "type": "Product",
+    "attributes": {
+     "name": "PHILA X 10",
+     "description": "SALMON Y QUESO",
+     "price": 11500,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/128.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "129",
+    "type": "Product",
+    "attributes": {
+     "name": "PHILA X 5",
+     "description": "SALMON Y QUESO",
+     "price": 5775,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/129.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "226",
+    "type": "Product",
+    "attributes": {
+     "name": "SPICY X 5",
+     "description": "Roll premium PICANTE con SALMÓN PANIZADO de relleno: salmón panizado y palta, con mayonesa spicy y lluvia de sésamo blanco. Sin queso",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/226.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "227",
+    "type": "Product",
+    "attributes": {
+     "name": "SPICY X 10",
+     "description": "Roll premium PICANTE con SALMÓN PANIZADO de relleno: salmón panizado y palta, con mayonesa spicy y lluvia de sésamo blanco. Sin queso",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/227.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "228",
+    "type": "Product",
+    "attributes": {
+     "name": "ACEVICHADO X 5",
+     "description": "Roll premium (NO panizado): relleno de ceviche con salsa acevichada",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/228.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "229",
+    "type": "Product",
+    "attributes": {
+     "name": "ACEVICHADO X 10",
+     "description": "Roll premium (NO panizado): relleno de ceviche con salsa acevichada",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/229.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "230",
+    "type": "Product",
+    "attributes": {
+     "name": "PALMI X 5",
+     "description": "Roll premium (NO panizado): salmón y palmito, coronado con mousse de palta.  No lleva queso,",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/230.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "231",
+    "type": "Product",
+    "attributes": {
+     "name": "PALMI X 10",
+     "description": "Roll premium (NO panizado): salmón y palmito, coronado con mousse de palta.  No lleva queso,",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/231.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "232",
+    "type": "Product",
+    "attributes": {
+     "name": "ABRAHAM X 5",
+     "description": "ROLL DE PALMITO,QUESO Y TAMAGO ENVUELTO EN SALMON CORONADO BATATAS CRUJIENTES Y SALSA MARACUYA,NO PANIZADO Y NO SE INCLUYE EN LAS PROMOS",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/232.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "233",
+    "type": "Product",
+    "attributes": {
+     "name": "ABRAHAM X 10",
+     "description": "ROLL DE PALMITO,QUESO Y TAMAGO ENVUELTO EN SALMON CORONADO BATATAS CRUJIENTES Y SALSA MARACUYA,NO PANIZADO Y NO SE INCLUYE EN LAS PROMOS",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/233.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "234",
+    "type": "Product",
+    "attributes": {
+     "name": "ITALIA X 5",
+     "description": "Roll premium (NO panizado): salmón y queso, con cobertura de salmón ahumado, lluvia de semillas y salsa huancaína. Lleva queso",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/234.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "235",
+    "type": "Product",
+    "attributes": {
+     "name": "ITALIA X 10",
+     "description": "Roll premium (NO panizado): salmón y queso, con cobertura de salmón ahumado, lluvia de semillas y salsa huancaína. Lleva queso",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/235.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "6",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "116",
+    "type": "Product",
+    "attributes": {
+     "name": "BOKEE X 10",
+     "description": "Hot roll: arroz panizado y frito por fuera, salmón COCIDO adentro (se puede pedir el salmón también panizado). Relleno: solo salmón, con salsa de miel y mostaza. Es el que piden como \"solo salmón panizado\". (Opción sin maracuyá.",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/116.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "7",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "115",
+    "type": "Product",
+    "attributes": {
+     "name": "BOKEE X 5",
+     "description": "Hot roll: arroz panizado y frito por fuera, salmón COCIDO adentro (se puede pedir el salmón también panizado). Relleno: solo salmón, con salsa de miel y mostaza. Es el que piden como \"solo salmón panizado\". (Opción sin maracuyá.",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/115.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "7",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "177",
+    "type": "Product",
+    "attributes": {
+     "name": "LIVERPOOL X 10",
+     "description": "Hot roll: arroz panizado y frito por fuera, (opción salmón panizado). Relleno: queso y palta con tartar de salmón. Lleva queso",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/177.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "7",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "176",
+    "type": "Product",
+    "attributes": {
+     "name": "LIVERPOOL X 5",
+     "description": "Hot roll: arroz panizado y frito por fuera, (opción salmón panizado). Relleno: queso y palta con tartar de salmón. Lleva queso",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/176.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "7",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "179",
+    "type": "Product",
+    "attributes": {
+     "name": "PSG X 10",
+     "description": "Hot roll: arroz panizado y frito por fuera, salmón COCIDO adentro (opción salmón panizado). Relleno: salmón y palta, con salsa de maracuyá. Sin queso",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/179.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "7",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "178",
+    "type": "Product",
+    "attributes": {
+     "name": "PSG X 5 !",
+     "description": "Hot roll: arroz panizado y frito por fuera, salmón COCIDO adentro (opción salmón panizado). Relleno: salmón y palta, con salsa de maracuyá. Sin queso",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/178.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "7",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "114",
+    "type": "Product",
+    "attributes": {
+     "name": "REAL MADRID X 10",
+     "description": "Hot roll: arroz panizado y frito por fuera, salmón COCIDO adentro (opción salmón panizado). Relleno: salmón y queso. Lleva queso",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/114.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "7",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "113",
+    "type": "Product",
+    "attributes": {
+     "name": "REAL MADRID X 5",
+     "description": "Hot roll: arroz panizado y frito por fuera, salmón COCIDO adentro (opción salmón panizado). Relleno: salmón y queso. Lleva queso",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/113.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "7",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "112",
+    "type": "Product",
+    "attributes": {
+     "name": "RIVER X 10",
+     "description": "Hot roll: arroz panizado y frito por fuera, salmón COCIDO adentro (opción salmón panizado). Relleno: salmón, queso y palta, coronado con guacamole y lluvia de batatas. Lleva queso",
+     "price": 13200,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/112.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "7",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "111",
+    "type": "Product",
+    "attributes": {
+     "name": "RIVER X 5",
+     "description": "Hot roll: arroz panizado y frito por fuera, salmón COCIDO adentro (opción salmón panizado). Relleno: salmón, queso y palta, coronado con guacamole y lluvia de batatas. Lleva queso",
+     "price": 6600,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/111.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "7",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "28",
+    "type": "Product",
+    "attributes": {
+     "name": "COMBO 12 UNIDADES",
+     "description": "4 PHILADELPHIA , 4 NEW YORKI PHILA,2 NIGUIRI, 2 GUEISHA",
+     "price": 22000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/28.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "8",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "29",
+    "type": "Product",
+    "attributes": {
+     "name": "COMBO 16 UNIDADES",
+     "description": "4 NY PHILA,4 TUNA, 2 NIGUIRI,2 GEISHA Y 4 SMOKE",
+     "price": 26000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/29.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "8",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "30",
+    "type": "Product",
+    "attributes": {
+     "name": "COMBO 24 UNIDADES",
+     "description": "4 PHILA, 4 NY PHILA,4 GOLDEN, 4 NEW YORK , 2 NIGUIRI , 2 GEISHA , 4 SMOKE",
+     "price": 30000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/30.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "8",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "31",
+    "type": "Product",
+    "attributes": {
+     "name": "COMBO 30 UNIDADES",
+     "description": "2 SASHIMI, 4 PHILA, 4 NY PHILA , 4 TUNA , 4 GOLDEN, 4 NEW YORK, 4 SMOKE , 2 NIGUIRI ,2 GEISHA",
+     "price": 44000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/31.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "8",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "152",
+    "type": "Product",
+    "attributes": {
+     "name": "WOK DE ARROZ CON SALMON",
+     "description": "WOK DE ARROZ CON VERDURAS SALTEADAS Y SALMON PANIZADO CON LLUVIA DE SESAMO MIXTOJ",
+     "price": 17000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/152.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "9",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "194",
+    "type": "Product",
+    "attributes": {
+     "name": "WOK DE ARROZ CON  VERDURAS SALTEADAS",
+     "description": "WOK DE ARROZ CON VERDURAS SALTEADAS CON LLUVIA DE SESAMO MIXTO",
+     "price": 15000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/194.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "9",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "256",
+    "type": "Product",
+    "attributes": {
+     "name": "WOK DE FIDEOS CON SALMON",
+     "description": "WOK DE VERDURAS SALTEADAS,CON SALMON Y LLUVIA DE SESAMO A BASE DE FIDEOS\"",
+     "price": 18000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/256.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "9",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "257",
+    "type": "Product",
+    "attributes": {
+     "name": "WOK DE FIDEOS CON VERDURAS",
+     "description": "WOK DE VERDURAS SALTEADAS CON BASE DE FIDEOS!",
+     "price": 16000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/257.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "9",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "122",
+    "type": "Product",
+    "attributes": {
+     "name": "TEMAKI ALL PANIZADO",
+     "description": "CONO DE ALGA CON SOLO SALMON PANIZADO",
+     "price": 11000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/122.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "10",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "121",
+    "type": "Product",
+    "attributes": {
+     "name": "TEMAKI ALL SALMON",
+     "description": "CONO DE ALGA DE SOLO SALMON",
+     "price": 11000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/121.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "10",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "119",
+    "type": "Product",
+    "attributes": {
+     "name": "TEMAKI CLASICO CON SALMON Y QUESO",
+     "description": "CONO DE ALGA CON SALMON PALTA Y QUESO",
+     "price": 11000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/119.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "10",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "120",
+    "type": "Product",
+    "attributes": {
+     "name": "TEMAKI PANIZADO",
+     "description": "CONO DE ALGA SALMON PANIZADO ,PALTA Y QUESO",
+     "price": 11000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/120.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "10",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "135",
+    "type": "Product",
+    "attributes": {
+     "name": "TUNA X 10",
+     "description": "Roll clásico con ATÚN (NO panizado, sin salmón): pasta de atún y palta. Sin queso ,SE PUEDE PEDIR SIN PALTA",
+     "price": 10500,
+     "active": true,
+     "enabled": false,
+     "imageUrl": "/productos/135.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "10",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "82",
+    "type": "Product",
+    "attributes": {
+     "name": "BASTONES DE SALMON X 6",
+     "description": "6 UNIDADES DE BASTONES DE SALMON PANIZADOS",
+     "price": 16000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/82.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "11",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "150",
+    "type": "Product",
+    "attributes": {
+     "name": "TABLA DE ENTRADA X 12",
+     "description": "2 NIGUIRI\n2 SASHIMI\n2 GEISHAS \n2 NIGUIRIS CORONADO\n2 SASHIMI FLAMBEADO\n2 NIGUIRI FLAMBEADO",
+     "price": 20000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/150.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "11",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "151",
+    "type": "Product",
+    "attributes": {
+     "name": "TABLA DE ENTRADA X 18",
+     "description": "2 NIGUIRI\n2 SASHIMI\n2 NIGUIRIS CORONADOS\n3 GEISHAS \n3 NIGUIRIS CORONADO\n3 SASHIMI FLAMBEADO\n3 NIGUIRI FLAMBEADO",
+     "price": 28000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/151.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "11",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "117",
+    "type": "Product",
+    "attributes": {
+     "name": "TIRADITOS SALMON",
+     "description": "LAMINAS DE SALMON CON LLUVIA DE BATATAS Y SALSA MARACUYA",
+     "price": 11500,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/117.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "11",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "27",
+    "type": "Product",
+    "attributes": {
+     "name": "POSTRE BALCARCE",
+     "description": "POSTRE BALCARCEs",
+     "price": 12000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/27.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "12",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "16",
+    "type": "Product",
+    "attributes": {
+     "name": "POSTRE CHOCOTORTA",
+     "description": "POSTRE CHOCOTORTA",
+     "price": 12000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/16.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "12",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "17",
+    "type": "Product",
+    "attributes": {
+     "name": "POSTRE OREO/MOUSSE",
+     "description": "postre oreo",
+     "price": 12000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/17.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "12",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "238",
+    "type": "Product",
+    "attributes": {
+     "name": "TROYA X 5",
+     "description": "ROLL CON QUESO Y PALTA CON COBERTURA DE MANGO Y SALSA MARACUYA",
+     "price": 6000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/238.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "13",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "239",
+    "type": "Product",
+    "attributes": {
+     "name": "TROYA X 10",
+     "description": "ROLL CON QUESO Y PALTA CON COBERTURA DE MANGO Y SALSA MARACUYA",
+     "price": 12000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/239.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "13",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "240",
+    "type": "Product",
+    "attributes": {
+     "name": "ATENAS X 5",
+     "description": "ROLL CON QUESO,PEPINO Y PALTA",
+     "price": 6000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/240.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "13",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "241",
+    "type": "Product",
+    "attributes": {
+     "name": "ATENAS X 10",
+     "description": "ROLL CON QUESO,PEPINO Y PALTA",
+     "price": 12000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/241.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "13",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "242",
+    "type": "Product",
+    "attributes": {
+     "name": "FILIPINAS X 5",
+     "description": "ROLL DE QUESO,TOMATE Y PEPINO CON COBERTURA DE PALTA Y LLUVIA DE SESAMO!",
+     "price": 6000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/242.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "13",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "243",
+    "type": "Product",
+    "attributes": {
+     "name": "FILIPINAS X 10",
+     "description": "ROLL DE QUESO,TOMATE Y PEPINO CON COBERTURA DE PALTA Y LLUVIA DE SESAMO!",
+     "price": 12000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/243.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "13",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "123",
+    "type": "Product",
+    "attributes": {
+     "name": "CEVICHE SALMON",
+     "description": "CEVICHE",
+     "price": 26000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/123.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "14",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "67",
+    "type": "Product",
+    "attributes": {
+     "name": "WASABI",
+     "description": "",
+     "price": 1000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/67.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "15",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "74",
+    "type": "Product",
+    "attributes": {
+     "name": "PALITOS",
+     "description": "Palitos",
+     "price": 1500,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/74.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "15",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "76",
+    "type": "Product",
+    "attributes": {
+     "name": "SALSA MARACUYA",
+     "description": "Maracuya",
+     "price": 1500,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/76.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "15",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "70",
+    "type": "Product",
+    "attributes": {
+     "name": "SALSA SOJA",
+     "description": "Salsa de soja",
+     "price": 1000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/70.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "15",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "69",
+    "type": "Product",
+    "attributes": {
+     "name": "SALSA TERIYAKI",
+     "description": "Salsa teriyaki",
+     "price": 1000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/69.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "15",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "73",
+    "type": "Product",
+    "attributes": {
+     "name": "TENEDORES",
+     "description": "Tenedor",
+     "price": 300,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/73.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "15",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "180",
+    "type": "Product",
+    "attributes": {
+     "name": "MOSTAZA Y MIEL",
+     "description": "Mostaza y miel",
+     "price": 1500,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/180.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "15",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "261",
+    "type": "Product",
+    "attributes": {
+     "name": "Gengibre",
+     "description": "Gengibre!",
+     "price": 1000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/261.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "15",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "19",
+    "type": "Product",
+    "attributes": {
+     "name": "COCA COMUN",
+     "description": "COCA COMUN",
+     "price": 3000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/19.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "16",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "18",
+    "type": "Product",
+    "attributes": {
+     "name": "COCA LIGHT",
+     "description": "COCA LIGHT",
+     "price": 3000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/18.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "16",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "248",
+    "type": "Product",
+    "attributes": {
+     "name": "AGUA CON GAS",
+     "description": "AGUA CON GAS",
+     "price": 3000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/248.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "16",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "249",
+    "type": "Product",
+    "attributes": {
+     "name": "AGUA CHICA",
+     "description": "AGUA SIN GAS",
+     "price": 3000,
+     "active": true,
+     "enabled": true,
+     "imageUrl": "/productos/249.webp"
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "16",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "275",
+    "type": "Product",
+    "attributes": {
+     "name": "SIN QUESO",
+     "description": "",
+     "price": 0,
+     "active": true,
+     "enabled": false
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "24",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   },
+   {
+    "id": "276",
+    "type": "Product",
+    "attributes": {
+     "name": "SIN PALTA",
+     "description": "",
+     "price": 0,
+     "active": true,
+     "enabled": false
+    },
+    "relationships": {
+     "productCategory": {
+      "data": {
+       "id": "24",
+       "type": "ProductCategory"
+      }
+     }
+    }
+   }
+  ]
+ }
 }

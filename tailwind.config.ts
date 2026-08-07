@@ -15,9 +15,9 @@ const config: Config = {
           suave: "#3d3d3d",
         },
         fuego: {
-          DEFAULT: "#C8102E", // rojo Abraham: CTAs, precios, badges
-          oscuro: "#A00D25", // estado presionado / hover
-          claro: "#FDECEE", // fondos suaves de avisos
+          DEFAULT: "#B80D0D", // rojo Abraham (el mismo de su página de Fudo)
+          oscuro: "#8F0A0A", // estado presionado / hover
+          claro: "#FDECEC", // fondos suaves de avisos
         },
         marfil: "#F7F6F4", // fondo de secciones
       },

@@ -17,7 +17,7 @@ export function PaginaPrincipal({
   const { abierto, proxima } = useAbierto(estadoInicial);
 
   return (
-    <main className="pb-28">
+    <main className="min-h-screen bg-fuego pb-28">
       <Encabezado abierto={abierto} proxima={proxima} />
       <CatalogoUI catalogo={catalogo} />
       <BarraCarrito />

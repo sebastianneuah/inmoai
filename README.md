@@ -53,10 +53,14 @@ por "Cerrado ahora — abrimos {próximo horario}".
 
 ## Catálogo
 
-- Hoy: catálogo local en [`data/catalogo.json`](data/catalogo.json), con la
-  **misma estructura JSON:API que devuelve la API de Fudo** (Product /
-  ProductCategory). Editarlo a mano para cambiar precios o marcar agotados
-  (`"active": false` = Agotado).
+- Hoy: catálogo **real del local** en [`data/catalogo.json`](data/catalogo.json)
+  (importado del menú público de Fudo: 16 categorías, 119 productos con fotos
+  en `public/productos/`), con la **misma estructura JSON:API que devuelve la
+  API de Fudo** (Product / ProductCategory). Editarlo a mano para cambiar
+  precios o marcar agotados (`"active": false` = Agotado).
+- Para re-sincronizar cuando cambie el menú en Fudo:
+  `node scripts/importar-catalogo-fudo.mjs` (requiere Playwright). Vuelve a
+  bajar categorías, productos, precios y fotos.
 - Mañana: cuando Fudo habilite la API, la capa [`lib/catalogo.ts`](lib/catalogo.ts)
   pasa a leer de la API con revalidación cada 15 minutos (ya configurada en
   `app/page.tsx` con `revalidate = 900`). El resto de la app no cambia.
