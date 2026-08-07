@@ -41,6 +41,8 @@ export default function PaginaCheckout() {
     referencias: "",
   });
   const [zonaId, setZonaId] = useState("");
+  // Costo de envío vigente informado por el servidor si difiere del local
+  const [envioServidor, setEnvioServidor] = useState<number | null>(null);
   const [metodoPago, setMetodoPago] = useState<"efectivo" | "transferencia">("efectivo");
   const [pagaCon, setPagaCon] = useState("");
   const [montoJusto, setMontoJusto] = useState(false);
@@ -74,7 +76,15 @@ export default function PaginaCheckout() {
   }, []);
 
   const esDelivery = carrito.modoEntrega === "delivery";
-  const costoEnvio = esDelivery ? (costoEnvioDelivery(zonaId || undefined) ?? 0) : 0;
+
+  // Si cambia la zona o el modo, el costo local vuelve a mandar
+  useEffect(() => {
+    setEnvioServidor(null);
+  }, [zonaId, carrito.modoEntrega]);
+
+  const costoEnvio = esDelivery
+    ? (envioServidor ?? costoEnvioDelivery(zonaId || undefined) ?? 0)
+    : 0;
   const faltaZona = esDelivery && hayZonas() && !zonaId;
   const total = carrito.subtotal + costoEnvio;
   const faltaParaMinimo = esDelivery
@@ -147,9 +157,12 @@ export default function PaginaCheckout() {
       });
       const datos = (await respuesta.json()) as RespuestaApiPedidos;
       if (!datos.ok) {
-        // Si cambiaron los precios, sincronizamos el carrito con los nuevos
+        // Si cambiaron los precios o el envío, sincronizamos con los vigentes
         if (datos.preciosActualizados?.length) {
           carrito.actualizarPrecios(datos.preciosActualizados);
+        }
+        if (typeof datos.costoEnvioActualizado === "number") {
+          setEnvioServidor(datos.costoEnvioActualizado);
         }
         setError(datos.error);
         setEnviando(false);
@@ -186,6 +199,7 @@ export default function PaginaCheckout() {
 
   const estiloCampo =
     "mt-1 w-full rounded-xl border border-gray-300 px-3 py-3 text-base";
+  const sugerencias = sugerenciasDePago(total);
 
   return (
     <main className="mx-auto max-w-2xl px-4 pb-44 pt-4">
@@ -397,9 +411,9 @@ export default function PaginaCheckout() {
               className={`${estiloCampo} disabled:opacity-50`}
             />
           </label>
-          {!montoJusto && sugerenciasDePago(total).length > 0 && (
+          {!montoJusto && sugerencias.length > 0 && (
             <div className="mt-2 flex gap-2">
-              {sugerenciasDePago(total).map((monto) => (
+              {sugerencias.map((monto) => (
                 <button
                   key={monto}
                   onClick={() => setPagaCon(String(monto))}

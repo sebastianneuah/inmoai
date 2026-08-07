@@ -18,10 +18,10 @@ export const dynamic = "force-dynamic";
  * Idempotencia: la clave se reserva ANTES de inyectar en Fudo, guardando la
  * promesa del pedido en curso. Dos POSTs concurrentes con la misma clave
  * (doble tap, reintento por corte de conexión) esperan la MISMA promesa:
- * jamás se inyecta dos veces. Cache en memoria del proceso: cubre los
- * reintentos inmediatos, que son el caso real de doble envío; entre
- * instancias serverless distintas, Fudo puede deduplicar además por el
- * externalReference que enviamos.
+ * jamás se inyecta dos veces en el mismo proceso. Entre instancias
+ * serverless distintas, el número de pedido (y por lo tanto el
+ * externalReference enviado a Fudo) se deriva de la clave, así el reintento
+ * produce el mismo número y Fudo puede deduplicar del otro lado.
  */
 const pedidosEnCurso = new Map<string, Promise<PedidoConfirmado>>();
 const MAX_PEDIDOS_EN_MEMORIA = 200;
@@ -34,36 +34,38 @@ function reservarClave(clave: string, promesa: Promise<PedidoConfirmado>) {
   pedidosEnCurso.set(clave, promesa);
 }
 
-/**
- * Número de pedido corto y único: letra que rota por día + segundos del día
- * (5 dígitos, 00000-86399). Dos pedidos en el mismo segundo se distinguen con
- * un sufijo secuencial (…A, …B). El reintento de un mismo pedido reutiliza el
- * número por idempotencia.
- */
-let ultimoSegundo = -1;
-let secuenciaEnSegundo = 0;
-
-function generarNumeroPedido(): string {
-  const ahora = Date.now();
-  const letra = String.fromCharCode(65 + (Math.floor(ahora / 86_400_000) % 26));
-  const segundosDelDia = Math.floor(ahora / 1000) % 86_400;
-  if (segundosDelDia === ultimoSegundo) {
-    secuenciaEnSegundo++;
-  } else {
-    ultimoSegundo = segundosDelDia;
-    secuenciaEnSegundo = 0;
+/** Hash FNV-1a de 32 bits, suficiente para derivar números de pedido. */
+function hashFnv(texto: string): number {
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < texto.length; i++) {
+    hash ^= texto.charCodeAt(i);
+    hash = Math.imul(hash, 0x01000193);
   }
-  const sufijo =
-    secuenciaEnSegundo === 0
-      ? ""
-      : String.fromCharCode(65 + ((secuenciaEnSegundo - 1) % 26));
-  return `${letra}${String(segundosDelDia).padStart(5, "0")}${sufijo}`;
+  return hash >>> 0;
+}
+
+/**
+ * Número de pedido corto (2 letras + 4 dígitos, ej. "KD4821") derivado de la
+ * clave de idempotencia: el reintento de un mismo pedido — incluso en otra
+ * instancia serverless — produce el MISMO número, que además viaja a Fudo
+ * como externalReference para deduplicar del otro lado. Espacio de 6,7
+ * millones de combinaciones: la colisión entre pedidos distintos es
+ * despreciable al volumen de un local.
+ */
+function generarNumeroPedido(claveIdempotencia?: string): string {
+  const hash = hashFnv(claveIdempotencia || `${Date.now()}-${Math.random()}`);
+  const letras =
+    String.fromCharCode(65 + (hash % 26)) +
+    String.fromCharCode(65 + (Math.floor(hash / 26) % 26));
+  const digitos = String(Math.floor(hash / 676) % 10_000).padStart(4, "0");
+  return `${letras}${digitos}`;
 }
 
 class ErrorDePedido extends Error {
   constructor(
     mensaje: string,
-    public preciosActualizados?: { productoId: string; precio: number }[]
+    public preciosActualizados?: { productoId: string; precio: number }[],
+    public costoEnvioActualizado?: number
   ) {
     super(mensaje);
   }
@@ -130,7 +132,8 @@ async function crearPedido(entrante: PedidoEntrante): Promise<PedidoConfirmado> 
   if (Number.isFinite(entrante.totalEsperado) && entrante.totalEsperado !== total) {
     throw new ErrorDePedido(
       "Los precios se actualizaron mientras armabas el pedido. Revisá el total y volvé a confirmar.",
-      items.map((i) => ({ productoId: i.productoId, precio: i.precioUnitario }))
+      items.map((i) => ({ productoId: i.productoId, precio: i.precioUnitario })),
+      costoEnvio
     );
   }
 
@@ -173,7 +176,7 @@ async function crearPedido(entrante: PedidoEntrante): Promise<PedidoConfirmado> 
   }
 
   const pedido: PedidoConfirmado = {
-    numero: generarNumeroPedido(),
+    numero: generarNumeroPedido(entrante.claveIdempotencia),
     modoEntrega: entrante.modoEntrega,
     zonaEnvio: zona?.nombre,
     items,
@@ -238,7 +241,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true, pedido } satisfies RespuestaApiPedidos);
   } catch (error) {
     if (error instanceof ErrorDePedido) {
-      return respuestaError(error.message, error.preciosActualizados);
+      return respuestaError(
+        error.message,
+        error.preciosActualizados,
+        error.costoEnvioActualizado
+      );
     }
     console.error("[pedidos] Error inesperado:", error);
     return respuestaError("No pudimos procesar el pedido. Probá de nuevo en un minuto.");
@@ -247,10 +254,16 @@ export async function POST(request: Request) {
 
 function respuestaError(
   error: string,
-  preciosActualizados?: { productoId: string; precio: number }[]
+  preciosActualizados?: { productoId: string; precio: number }[],
+  costoEnvioActualizado?: number
 ) {
   return NextResponse.json(
-    { ok: false, error, preciosActualizados } satisfies RespuestaApiPedidos,
+    {
+      ok: false,
+      error,
+      preciosActualizados,
+      costoEnvioActualizado,
+    } satisfies RespuestaApiPedidos,
     { status: 400 }
   );
 }

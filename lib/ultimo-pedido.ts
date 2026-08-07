@@ -29,13 +29,21 @@ export function leerUltimoPedido(): PedidoConfirmado | null {
     const guardado = localStorage.getItem(CLAVE_ULTIMO_PEDIDO);
     if (!guardado) return null;
     const pedido = JSON.parse(guardado) as PedidoConfirmado;
-    // Validación mínima de forma: un registro corrupto no debe romper la página
+    // Validación de forma: un registro corrupto no debe romper la página.
+    // Se chequea todo lo que la confirmación desreferencia sin guardas.
     if (
       typeof pedido !== "object" ||
       pedido === null ||
       typeof pedido.numero !== "string" ||
       !Array.isArray(pedido.items) ||
-      typeof pedido.total !== "number"
+      typeof pedido.total !== "number" ||
+      typeof pedido.pago !== "object" ||
+      pedido.pago === null ||
+      (pedido.pago.metodo !== "efectivo" && pedido.pago.metodo !== "transferencia") ||
+      typeof pedido.datosPago !== "object" ||
+      pedido.datosPago === null ||
+      typeof pedido.cliente !== "object" ||
+      pedido.cliente === null
     ) {
       return null;
     }

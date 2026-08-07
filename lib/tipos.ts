@@ -99,4 +99,6 @@ export type RespuestaApiPedidos =
       error: string;
       /** Presente cuando el catálogo cambió: el cliente actualiza su carrito */
       preciosActualizados?: { productoId: string; precio: number }[];
+      /** Presente cuando el costo de envío vigente difiere del que vio el cliente */
+      costoEnvioActualizado?: number;
     };
