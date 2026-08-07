@@ -1,0 +1,2768 @@
+{
+ "products": [
+  {
+   "id": 200,
+   "name": "Promo 30 piezas DE SUSHI",
+   "productGroups": [
+    {
+     "id": 14,
+     "maxQuantity": 3.0,
+     "minQuantity": 3.0,
+     "name": "MODIFICADOR 30 PIEZAS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 116
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 96
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 106
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 170
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 98
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 128
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 179
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 112
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 227
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 135
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 92
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 100
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 177
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 94
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 102
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 162
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 108
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 133
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 131
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 235
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 231
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 114
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 229
+      }
+     ],
+     "title": "",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 198,
+   "name": "Promo 50 piezas de SUSHI",
+   "productGroups": [
+    {
+     "id": 15,
+     "maxQuantity": 5.0,
+     "minQuantity": 5.0,
+     "name": "MODIFICADOR 50 PIEZAS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 116
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 94
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 96
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 102
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 170
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 162
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 108
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 100
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 106
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 92
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 133
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 131
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 98
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 128
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 227
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 229
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 231
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 235
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 177
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 114
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 112
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 179
+      },
+      {
+       "maxQuantity": 5.0,
+       "price": 0.0,
+       "productId": 135
+      }
+     ],
+     "title": null,
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 199,
+   "name": "Promo 100 piezas DE SUSHI",
+   "productGroups": [
+    {
+     "id": 16,
+     "maxQuantity": 10.0,
+     "minQuantity": 10.0,
+     "name": "MODIFICADOR 100 PIEZAS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 116
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 94
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 96
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 102
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 170
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 162
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 108
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 100
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 106
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 92
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 133
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 131
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 98
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 128
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 227
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 229
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 10.0,
+       "productId": 231
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 235
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 177
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 114
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 112
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 179
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 135
+      }
+     ],
+     "title": null,
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 253,
+   "name": "PROMO 15 PIEZAS SUSHI APTO MEDIODIA",
+   "productGroups": []
+  },
+  {
+   "id": 255,
+   "name": "Promo 30 piezas DE SUSHI APTO SOLO MEDIODIA",
+   "productGroups": [
+    {
+     "id": 8,
+     "maxQuantity": 3.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA PROMO 30",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 70
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 12,
+     "maxQuantity": 3.0,
+     "minQuantity": 0.0,
+     "name": "Cubiertos para 3 personas",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 70
+      }
+     ],
+     "title": "Cubiertos",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 82,
+   "name": "BASTONES DE SALMON X 6",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 150,
+   "name": "TABLA DE ENTRADA X 12",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 151,
+   "name": "TABLA DE ENTRADA X 18",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 117,
+   "name": "TIRADITOS SALMON",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 28,
+   "name": "COMBO 12 UNIDADES",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 29,
+   "name": "COMBO 16 UNIDADES",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 30,
+   "name": "COMBO 24 UNIDADES",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 31,
+   "name": "COMBO 30 UNIDADES",
+   "productGroups": [
+    {
+     "id": 8,
+     "maxQuantity": 3.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA PROMO 30",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 70
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 10,
+     "maxQuantity": 2.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS PARA ENSALADAS GRANDES",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 73
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 264,
+   "name": "CHIRASHI",
+   "productGroups": []
+  },
+  {
+   "id": 197,
+   "name": "ENSALADA SALMON CRUDO CHICA",
+   "productGroups": [
+    {
+     "id": 17,
+     "maxQuantity": 1.0,
+     "minQuantity": 0.0,
+     "name": "SIN QUESO /SIN PALTA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 275
+      },
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 276
+      }
+     ],
+     "title": null,
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 10,
+     "maxQuantity": 2.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS PARA ENSALADAS GRANDES",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 73
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 251,
+   "name": "ENSALADA MIXTA CHICA",
+   "productGroups": [
+    {
+     "id": 17,
+     "maxQuantity": 1.0,
+     "minQuantity": 0.0,
+     "name": "SIN QUESO /SIN PALTA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 275
+      },
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 276
+      }
+     ],
+     "title": null,
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 10,
+     "maxQuantity": 2.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS PARA ENSALADAS GRANDES",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 73
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 83,
+   "name": "ENSALADA SALMON PANIZADA CHICA",
+   "productGroups": [
+    {
+     "id": 17,
+     "maxQuantity": 1.0,
+     "minQuantity": 0.0,
+     "name": "SIN QUESO /SIN PALTA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 275
+      },
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 276
+      }
+     ],
+     "title": null,
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 10,
+     "maxQuantity": 2.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS PARA ENSALADAS GRANDES",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 73
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 25,
+   "name": "ENSALADA ATUN CHICA",
+   "productGroups": [
+    {
+     "id": 17,
+     "maxQuantity": 1.0,
+     "minQuantity": 0.0,
+     "name": "SIN QUESO /SIN PALTA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 275
+      },
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 276
+      }
+     ],
+     "title": null,
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 12,
+     "maxQuantity": 3.0,
+     "minQuantity": 0.0,
+     "name": "Cubiertos para 3 personas",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 70
+      }
+     ],
+     "title": "Cubiertos",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 258,
+   "name": "ENSALADA VEGETARIANA",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 138,
+   "name": "ENSALADA SOLO SALMON PANIZADO CHICA",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 17,
+     "maxQuantity": 1.0,
+     "minQuantity": 0.0,
+     "name": "SIN QUESO /SIN PALTA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 275
+      },
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 276
+      }
+     ],
+     "title": null,
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 86,
+   "name": "ENSALADA SALMON AHUMADO CHICA",
+   "productGroups": [
+    {
+     "id": 17,
+     "maxQuantity": 1.0,
+     "minQuantity": 0.0,
+     "name": "SIN QUESO /SIN PALTA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 275
+      },
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 276
+      }
+     ],
+     "title": null,
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 24,
+   "name": "ENSALADA SALMON  CRUDO GRANDE",
+   "productGroups": [
+    {
+     "id": 17,
+     "maxQuantity": 1.0,
+     "minQuantity": 0.0,
+     "name": "SIN QUESO /SIN PALTA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 275
+      },
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 276
+      }
+     ],
+     "title": null,
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 9,
+     "maxQuantity": 3.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA GRANDE",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 70
+      }
+     ],
+     "title": "SALASAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 10,
+     "maxQuantity": 2.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS PARA ENSALADAS GRANDES",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 73
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 252,
+   "name": "ENSALADA SALMON MIXTA GRANDE",
+   "productGroups": [
+    {
+     "id": 17,
+     "maxQuantity": 1.0,
+     "minQuantity": 0.0,
+     "name": "SIN QUESO /SIN PALTA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 275
+      },
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 276
+      }
+     ],
+     "title": null,
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 9,
+     "maxQuantity": 3.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA GRANDE",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 70
+      }
+     ],
+     "title": "SALASAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 10,
+     "maxQuantity": 2.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS PARA ENSALADAS GRANDES",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 73
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 84,
+   "name": "ENSALADA SALMON PANIZADA GRANDE",
+   "productGroups": [
+    {
+     "id": 17,
+     "maxQuantity": 1.0,
+     "minQuantity": 0.0,
+     "name": "SIN QUESO /SIN PALTA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 275
+      },
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 276
+      }
+     ],
+     "title": null,
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 9,
+     "maxQuantity": 3.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA GRANDE",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 70
+      }
+     ],
+     "title": "SALASAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 10,
+     "maxQuantity": 2.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS PARA ENSALADAS GRANDES",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 73
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 26,
+   "name": "ENSALADA ATUN GRANDE",
+   "productGroups": [
+    {
+     "id": 17,
+     "maxQuantity": 1.0,
+     "minQuantity": 0.0,
+     "name": "SIN QUESO /SIN PALTA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 275
+      },
+      {
+       "maxQuantity": 1.0,
+       "price": 0.0,
+       "productId": 276
+      }
+     ],
+     "title": null,
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 9,
+     "maxQuantity": 3.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA GRANDE",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 70
+      }
+     ],
+     "title": "SALASAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 10,
+     "maxQuantity": 2.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS PARA ENSALADAS GRANDES",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 73
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 88,
+   "name": "ENSALADA SOLO SALMON GRANDE",
+   "productGroups": [
+    {
+     "id": 9,
+     "maxQuantity": 3.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA GRANDE",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 70
+      }
+     ],
+     "title": "SALASAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 10,
+     "maxQuantity": 2.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS PARA ENSALADAS GRANDES",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 73
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 85,
+   "name": "ENSALADA PANIZADA SOLO SALMON GRANDE",
+   "productGroups": [
+    {
+     "id": 9,
+     "maxQuantity": 3.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA GRANDE",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 70
+      }
+     ],
+     "title": "SALASAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 10,
+     "maxQuantity": 2.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS PARA ENSALADAS GRANDES",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 73
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 126,
+   "name": "HAMBURGUESA CLASICA",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 81,
+   "name": "HAMBURGUESA DE TAPAS PANIZADAS CON SALMÓN CRUDO PALTA Y QUESO",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 245,
+   "name": "PANCHO SUSHI CON SALMÓN PANIZADO PALTA Y QUESO",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 254,
+   "name": "PANCHO SUSHI CON SALMON CRUDO",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "name": "BAGEL SALMON PALTA QUESO",
+   "productGroups": []
+  },
+  {
+   "id": 12,
+   "name": "BAGEL ATUN PEPINO Y QUESO CREMA",
+   "productGroups": []
+  },
+  {
+   "id": 152,
+   "name": "WOK DE ARROZ CON SALMON",
+   "productGroups": [
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 194,
+   "name": "WOK DE ARROZ CON  VERDURAS SALTEADAS",
+   "productGroups": [
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 256,
+   "name": "WOK DE FIDEOS CON SALMON",
+   "productGroups": [
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 257,
+   "name": "WOK DE FIDEOS CON VERDURAS",
+   "productGroups": [
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 122,
+   "name": "TEMAKI ALL PANIZADO",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 121,
+   "name": "TEMAKI ALL SALMON",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 119,
+   "name": "TEMAKI CLASICO CON SALMON Y QUESO",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 120,
+   "name": "TEMAKI PANIZADO",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 123,
+   "name": "CEVICHE SALMON",
+   "productGroups": []
+  },
+  {
+   "id": 94,
+   "name": "DUBLIN X 10",
+   "productGroups": []
+  },
+  {
+   "id": 93,
+   "name": "DUBLIN X 5",
+   "productGroups": []
+  },
+  {
+   "id": 96,
+   "name": "EILAT X 10",
+   "productGroups": []
+  },
+  {
+   "id": 95,
+   "name": "EILAT X 5",
+   "productGroups": []
+  },
+  {
+   "id": 162,
+   "name": "FLORIDA X 10",
+   "productGroups": []
+  },
+  {
+   "id": 163,
+   "name": "FLORIDA X 5",
+   "productGroups": []
+  },
+  {
+   "id": 108,
+   "name": "GRECIA X 10",
+   "productGroups": []
+  },
+  {
+   "id": 107,
+   "name": "GRECIA X 5",
+   "productGroups": []
+  },
+  {
+   "id": 102,
+   "name": "HAWAII X 10",
+   "productGroups": []
+  },
+  {
+   "id": 101,
+   "name": "HAWAII X 5",
+   "productGroups": []
+  },
+  {
+   "id": 100,
+   "name": "JAMAICA X 10",
+   "productGroups": []
+  },
+  {
+   "id": 99,
+   "name": "JAMAICA X 5",
+   "productGroups": []
+  },
+  {
+   "id": 106,
+   "name": "MIAMI X 10",
+   "productGroups": []
+  },
+  {
+   "id": 236,
+   "name": "MIAMIII X 5",
+   "productGroups": []
+  },
+  {
+   "id": 170,
+   "name": "MILAN X 10",
+   "productGroups": []
+  },
+  {
+   "id": 171,
+   "name": "MILAN X 5",
+   "productGroups": []
+  },
+  {
+   "id": 92,
+   "name": "NAPOLES X 10",
+   "productGroups": []
+  },
+  {
+   "id": 91,
+   "name": "NAPOLES X 5",
+   "productGroups": []
+  },
+  {
+   "id": 133,
+   "name": "NEW YORK PHILA X 10",
+   "productGroups": []
+  },
+  {
+   "id": 132,
+   "name": "NEW YORK PHILA X 5",
+   "productGroups": []
+  },
+  {
+   "id": 131,
+   "name": "NEW YORK X 10",
+   "productGroups": []
+  },
+  {
+   "id": 130,
+   "name": "NEW YORK X 5",
+   "productGroups": []
+  },
+  {
+   "id": 98,
+   "name": "PARIS X 10",
+   "productGroups": []
+  },
+  {
+   "id": 97,
+   "name": "PARIS X 5",
+   "productGroups": []
+  },
+  {
+   "id": 128,
+   "name": "PHILA X 10",
+   "productGroups": []
+  },
+  {
+   "id": 129,
+   "name": "PHILA X 5",
+   "productGroups": []
+  },
+  {
+   "id": 226,
+   "name": "SPICY X 5",
+   "productGroups": []
+  },
+  {
+   "id": 227,
+   "name": "SPICY X 10",
+   "productGroups": []
+  },
+  {
+   "id": 228,
+   "name": "ACEVICHADO X 5",
+   "productGroups": []
+  },
+  {
+   "id": 229,
+   "name": "ACEVICHADO X 10",
+   "productGroups": []
+  },
+  {
+   "id": 230,
+   "name": "PALMI X 5",
+   "productGroups": []
+  },
+  {
+   "id": 231,
+   "name": "PALMI X 10",
+   "productGroups": []
+  },
+  {
+   "id": 232,
+   "name": "ABRAHAM X 5",
+   "productGroups": []
+  },
+  {
+   "id": 233,
+   "name": "ABRAHAM X 10",
+   "productGroups": []
+  },
+  {
+   "id": 234,
+   "name": "ITALIA X 5",
+   "productGroups": []
+  },
+  {
+   "id": 235,
+   "name": "ITALIA X 10",
+   "productGroups": []
+  },
+  {
+   "id": 116,
+   "name": "BOKEE X 10",
+   "productGroups": []
+  },
+  {
+   "id": 115,
+   "name": "BOKEE X 5",
+   "productGroups": []
+  },
+  {
+   "id": 177,
+   "name": "LIVERPOOL X 10",
+   "productGroups": []
+  },
+  {
+   "id": 176,
+   "name": "LIVERPOOL X 5",
+   "productGroups": []
+  },
+  {
+   "id": 179,
+   "name": "PSG X 10",
+   "productGroups": []
+  },
+  {
+   "id": 178,
+   "name": "PSG X 5 !",
+   "productGroups": [
+    {
+     "id": 2,
+     "maxQuantity": 10.0,
+     "minQuantity": 1.0,
+     "name": "TIPO DE SALSA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 3.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS Y WASABI",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 114,
+   "name": "REAL MADRID X 10",
+   "productGroups": []
+  },
+  {
+   "id": 113,
+   "name": "REAL MADRID X 5",
+   "productGroups": []
+  },
+  {
+   "id": 112,
+   "name": "RIVER X 10",
+   "productGroups": []
+  },
+  {
+   "id": 111,
+   "name": "RIVER X 5",
+   "productGroups": []
+  },
+  {
+   "id": 238,
+   "name": "TROYA X 5",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 239,
+   "name": "TROYA X 10",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 240,
+   "name": "ATENAS X 5",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 241,
+   "name": "ATENAS X 10",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 242,
+   "name": "FILIPINAS X 5",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 243,
+   "name": "FILIPINAS X 10",
+   "productGroups": [
+    {
+     "id": 11,
+     "maxQuantity": 2.0,
+     "minQuantity": 1.0,
+     "name": "SALSAS PARA ENSALADA CHICA",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 70
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 69
+      },
+      {
+       "maxQuantity": 2.0,
+       "price": 0.0,
+       "productId": 67
+      }
+     ],
+     "title": "SALSAS",
+     "priceAggregation": "SUM"
+    },
+    {
+     "id": 6,
+     "maxQuantity": 11.0,
+     "minQuantity": 0.0,
+     "name": "CUBIERTOS",
+     "productGroupProducts": [
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 73
+      },
+      {
+       "maxQuantity": 10.0,
+       "price": 0.0,
+       "productId": 74
+      }
+     ],
+     "title": "CUBIERTOS",
+     "priceAggregation": "SUM"
+    }
+   ]
+  },
+  {
+   "id": 36,
+   "name": "GEISHA",
+   "productGroups": []
+  },
+  {
+   "id": 32,
+   "name": "NIGUIRI",
+   "productGroups": []
+  },
+  {
+   "id": 127,
+   "name": "NIGUIRI AHUMADO",
+   "productGroups": []
+  },
+  {
+   "id": 146,
+   "name": "NIGUIRI CORONADO",
+   "productGroups": []
+  },
+  {
+   "id": 33,
+   "name": "NIGUIRI FLAMBEADO",
+   "productGroups": []
+  },
+  {
+   "id": 147,
+   "name": "NIGUIRI SPICY",
+   "productGroups": []
+  },
+  {
+   "id": 34,
+   "name": "SASHIMI X 3 UNIDADES",
+   "productGroups": []
+  },
+  {
+   "id": 35,
+   "name": "SASHIMI FLAMBEADO X 3 UNIDADES",
+   "productGroups": []
+  },
+  {
+   "id": 148,
+   "name": "SASHIMI SPICY X 3 UNIDADES",
+   "productGroups": []
+  },
+  {
+   "id": 262,
+   "name": "BANDEJA ATUN ROJO",
+   "productGroups": []
+  },
+  {
+   "id": 67,
+   "name": "WASABI",
+   "productGroups": []
+  },
+  {
+   "id": 74,
+   "name": "PALITOS",
+   "productGroups": []
+  },
+  {
+   "id": 76,
+   "name": "SALSA MARACUYA",
+   "productGroups": []
+  },
+  {
+   "id": 70,
+   "name": "SALSA SOJA",
+   "productGroups": []
+  },
+  {
+   "id": 69,
+   "name": "SALSA TERIYAKI",
+   "productGroups": []
+  },
+  {
+   "id": 73,
+   "name": "TENEDORES",
+   "productGroups": []
+  },
+  {
+   "id": 180,
+   "name": "MOSTAZA Y MIEL",
+   "productGroups": []
+  },
+  {
+   "id": 261,
+   "name": "Gengibre",
+   "productGroups": []
+  },
+  {
+   "id": 27,
+   "name": "POSTRE BALCARCE",
+   "productGroups": []
+  },
+  {
+   "id": 16,
+   "name": "POSTRE CHOCOTORTA",
+   "productGroups": []
+  },
+  {
+   "id": 17,
+   "name": "POSTRE OREO/MOUSSE",
+   "productGroups": []
+  },
+  {
+   "id": 19,
+   "name": "COCA COMUN",
+   "productGroups": []
+  },
+  {
+   "id": 18,
+   "name": "COCA LIGHT",
+   "productGroups": []
+  },
+  {
+   "id": 248,
+   "name": "AGUA CON GAS",
+   "productGroups": []
+  },
+  {
+   "id": 249,
+   "name": "AGUA CHICA",
+   "productGroups": []
+  },
+  {
+   "id": 276,
+   "name": "SIN PALTA",
+   "productGroups": []
+  },
+  {
+   "id": 135,
+   "name": "TUNA X 10",
+   "productGroups": []
+  },
+  {
+   "id": 275,
+   "name": "SIN QUESO",
+   "productGroups": []
+  }
+ ]
+}

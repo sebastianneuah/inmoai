@@ -1,11 +1,14 @@
 import { NextResponse } from "next/server";
-import { NEGOCIO, datosPagoDesdeEntorno } from "@/config/negocio";
-import { obtenerCatalogo } from "@/lib/catalogo";
+import { obtenerCatalogo } from "@/lib/tienda/catalogo";
+import { obtenerAcompanamientos } from "@/lib/tienda/acompanamientos";
+import { obtenerConfig } from "@/lib/tienda/configuracion";
+import { guardarPedido } from "@/lib/tienda/pedidos";
 import { costoEnvioDelivery, buscarZona, hayZonas } from "@/lib/envio";
 import { estaAbierto } from "@/lib/horarios";
 import { obtenerClienteFudo } from "@/lib/fudo";
 import { telefonoValido } from "@/lib/validacion";
 import type {
+  AcompanamientoConfirmado,
   ItemConfirmado,
   PedidoConfirmado,
   PedidoEntrante,
@@ -15,6 +18,10 @@ import type {
 export const dynamic = "force-dynamic";
 
 /**
+ * Creación de pedidos. Regla de oro: NADA de lo que manda el navegador se usa
+ * como precio. El cliente envía productoId, cantidad, opcionIds y cantidades
+ * de acompañamientos; el servidor recalcula todo contra el catálogo vigente.
+ *
  * Idempotencia: la clave se reserva ANTES de inyectar en Fudo, guardando la
  * promesa del pedido en curso. Dos POSTs concurrentes con la misma clave
  * (doble tap, reintento por corte de conexión) esperan la MISMA promesa:
@@ -48,9 +55,7 @@ function hashFnv(texto: string): number {
  * Número de pedido corto (2 letras + 4 dígitos, ej. "KD4821") derivado de la
  * clave de idempotencia: el reintento de un mismo pedido — incluso en otra
  * instancia serverless — produce el MISMO número, que además viaja a Fudo
- * como externalReference para deduplicar del otro lado. Espacio de 6,7
- * millones de combinaciones: la colisión entre pedidos distintos es
- * despreciable al volumen de un local.
+ * como externalReference para deduplicar del otro lado.
  */
 function generarNumeroPedido(claveIdempotencia?: string): string {
   const hash = hashFnv(claveIdempotencia || `${Date.now()}-${Math.random()}`);
@@ -71,32 +76,34 @@ class ErrorDePedido extends Error {
   }
 }
 
-function validar(pedido: PedidoEntrante): string | null {
-  if (!estaAbierto()) return "El local está cerrado en este momento.";
-  if (!pedido.items?.length) return "El carrito está vacío.";
-  if (!pedido.cliente?.nombre?.trim()) return "Falta tu nombre.";
-  if (!telefonoValido(pedido.cliente?.telefono ?? "")) {
-    return "El teléfono no parece válido. Usá el formato 11 2345 6789.";
-  }
-  if (pedido.modoEntrega === "delivery" && !pedido.cliente.direccion?.trim()) {
-    return "Falta la dirección de entrega.";
-  }
-  if (pedido.modoEntrega === "delivery" && hayZonas() && !buscarZona(pedido.zonaId)) {
-    return "Elegí tu zona de entrega.";
-  }
-  const metodo = pedido.pago?.metodo;
-  if (metodo !== "efectivo" && metodo !== "transferencia") {
-    return "Elegí un método de pago.";
-  }
-  return null;
-}
-
 async function crearPedido(entrante: PedidoEntrante): Promise<PedidoConfirmado> {
-  const errorValidacion = validar(entrante);
-  if (errorValidacion) throw new ErrorDePedido(errorValidacion);
+  const [catalogo, acompDisponibles, config] = await Promise.all([
+    obtenerCatalogo(),
+    obtenerAcompanamientos(),
+    obtenerConfig(),
+  ]);
 
-  // Precios y stock SIEMPRE del catálogo del servidor (nunca del navegador)
-  const catalogo = obtenerCatalogo();
+  // ── Validaciones de negocio ──
+  if (!estaAbierto(config.horarios)) {
+    throw new ErrorDePedido("El local está cerrado en este momento.");
+  }
+  if (!entrante.items?.length) throw new ErrorDePedido("El carrito está vacío.");
+  if (!entrante.cliente?.nombre?.trim()) throw new ErrorDePedido("Falta tu nombre.");
+  if (!telefonoValido(entrante.cliente?.telefono ?? "")) {
+    throw new ErrorDePedido("El teléfono no parece válido. Usá el formato 11 2345 6789.");
+  }
+  if (entrante.modoEntrega === "delivery" && !entrante.cliente.direccion?.trim()) {
+    throw new ErrorDePedido("Falta la dirección de entrega.");
+  }
+  if (entrante.modoEntrega === "delivery" && hayZonas() && !buscarZona(entrante.zonaId)) {
+    throw new ErrorDePedido("Elegí tu zona de entrega.");
+  }
+  const metodo = entrante.pago?.metodo;
+  if (metodo !== "efectivo" && metodo !== "transferencia") {
+    throw new ErrorDePedido("Elegí un método de pago.");
+  }
+
+  // ── Ítems: precios y stock SIEMPRE del catálogo del servidor ──
   const items: ItemConfirmado[] = [];
   for (const item of entrante.items) {
     const producto = catalogo.productos.find((p) => p.id === item.productoId);
@@ -110,20 +117,90 @@ async function crearPedido(entrante: PedidoEntrante): Promise<PedidoConfirmado> 
     if (!Number.isFinite(cantidad) || cantidad < 1 || cantidad > 99) {
       throw new ErrorDePedido("Hay una cantidad inválida en el carrito.");
     }
+
+    // Modificadores: se resuelven contra los grupos vigentes del producto.
+    // El precio extra sale del catálogo, nunca del navegador.
+    const modificadores: { nombre: string; precioExtra: number }[] = [];
+    let extras = 0;
+    for (const grupo of producto.grupos) {
+      const seleccion = item.modificadores?.find((m) => m.grupoId === grupo.id);
+      const opcionIds = seleccion?.opcionIds ?? [];
+      if (opcionIds.length < grupo.minimo) {
+        throw new ErrorDePedido(
+          `Falta elegir una opción de "${grupo.nombre}" en ${producto.nombre}.`
+        );
+      }
+      if (opcionIds.length > grupo.maximo) {
+        throw new ErrorDePedido(
+          `Elegiste demasiadas opciones en "${grupo.nombre}" (máximo ${grupo.maximo}).`
+        );
+      }
+      for (const opcionId of opcionIds) {
+        const opcion = grupo.opciones.find((o) => o.id === opcionId);
+        if (!opcion) {
+          throw new ErrorDePedido(
+            `Una opción de "${grupo.nombre}" ya no está disponible. Revisá el pedido.`
+          );
+        }
+        modificadores.push({ nombre: opcion.nombre, precioExtra: opcion.precioExtra });
+        extras += opcion.precioExtra;
+      }
+    }
+
     items.push({
       productoId: producto.id,
       nombre: producto.nombre,
       cantidad,
-      precioUnitario: producto.precio,
+      precioUnitario: producto.precio + extras,
       aclaracion: item.aclaracion?.trim().slice(0, 200) || undefined,
+      modificadores,
     });
   }
 
-  const subtotal = items.reduce((suma, i) => suma + i.precioUnitario * i.cantidad, 0);
+  // ── Acompañamientos (salsas / palitos), también precificados server-side ──
+  const acompanamientos: AcompanamientoConfirmado[] = [];
+  const cantidades = entrante.acompanamientos?.cantidades ?? {};
+  for (const [id, cantidadCruda] of Object.entries(cantidades)) {
+    const acomp = acompDisponibles.find((a) => a.id === id && a.tipo !== "palitos");
+    if (!acomp) continue; // desactivado desde el admin mientras pedía: se ignora
+    const cantidad = Math.floor(Number(cantidadCruda));
+    if (!Number.isFinite(cantidad) || cantidad < 1) continue;
+    if (cantidad > acomp.maximo) {
+      throw new ErrorDePedido(`El máximo de ${acomp.nombre} es ${acomp.maximo}.`);
+    }
+    acompanamientos.push({
+      nombre: acomp.nombre,
+      cantidad,
+      precioUnitario: acomp.precio,
+    });
+  }
+
+  // Los palitos son un acompañamiento más: se cobran con su precio vigente,
+  // igual que las salsas, para que el total del cliente y el del servidor coincidan.
+  const acompPalitos = acompDisponibles.find((a) => a.tipo === "palitos");
+  const palitos = Math.max(
+    0,
+    Math.min(
+      acompPalitos?.maximo ?? 20,
+      Math.floor(Number(entrante.acompanamientos?.palitos ?? 0)) || 0
+    )
+  );
+  if (acompPalitos && palitos > 0) {
+    acompanamientos.push({
+      nombre: acompPalitos.nombre,
+      cantidad: palitos,
+      precioUnitario: acompPalitos.precio,
+    });
+  }
+
+  const subtotal =
+    items.reduce((suma, i) => suma + i.precioUnitario * i.cantidad, 0) +
+    acompanamientos.reduce((suma, a) => suma + a.precioUnitario * a.cantidad, 0);
+
   const zona = entrante.modoEntrega === "delivery" ? buscarZona(entrante.zonaId) : undefined;
   const costoEnvio =
     entrante.modoEntrega === "delivery"
-      ? (costoEnvioDelivery(entrante.zonaId) ?? NEGOCIO.entrega.envio.costoUnico)
+      ? (costoEnvioDelivery(entrante.zonaId) ?? config.costoEnvio)
       : 0;
   const total = subtotal + costoEnvio;
 
@@ -137,16 +214,13 @@ async function crearPedido(entrante: PedidoEntrante): Promise<PedidoConfirmado> 
     );
   }
 
-  if (
-    entrante.modoEntrega === "delivery" &&
-    subtotal < NEGOCIO.entrega.pedidoMinimoDelivery
-  ) {
+  if (entrante.modoEntrega === "delivery" && subtotal < config.pedidoMinimo) {
     throw new ErrorDePedido(
-      `El pedido mínimo para delivery es $${NEGOCIO.entrega.pedidoMinimoDelivery.toLocaleString("es-AR")}.`
+      `El pedido mínimo para delivery es $${config.pedidoMinimo.toLocaleString("es-AR")}.`
     );
   }
 
-  // Efectivo: validar el monto con el que paga (≥ total) y calcular vuelto.
+  // ── Efectivo: validar el monto y calcular vuelto ──
   // El objeto `pago` se reconstruye con el valor ya validado: nada del
   // navegador se propaga crudo a Fudo ni a la confirmación.
   let pago: PedidoConfirmado["pago"];
@@ -168,8 +242,7 @@ async function crearPedido(entrante: PedidoEntrante): Promise<PedidoConfirmado> 
     pago = { metodo: "transferencia" };
   }
 
-  const datosPago = datosPagoDesdeEntorno();
-  if (entrante.pago.metodo === "transferencia" && !datosPago.aliasMp) {
+  if (entrante.pago.metodo === "transferencia" && !config.aliasMp) {
     console.error(
       "[pedidos] ALIAS_MP no está configurado y entró un pedido por transferencia"
     );
@@ -180,6 +253,8 @@ async function crearPedido(entrante: PedidoEntrante): Promise<PedidoConfirmado> 
     modoEntrega: entrante.modoEntrega,
     zonaEnvio: zona?.nombre,
     items,
+    acompanamientos,
+    palitos,
     aclaracionGeneral: entrante.aclaracionGeneral?.trim().slice(0, 500) || undefined,
     cliente: {
       nombre: entrante.cliente.nombre.trim().slice(0, 100),
@@ -193,16 +268,14 @@ async function crearPedido(entrante: PedidoEntrante): Promise<PedidoConfirmado> 
     total,
     vuelto,
     tiempoEstimado:
-      entrante.modoEntrega === "delivery"
-        ? NEGOCIO.entrega.tiempoEstimado.delivery
-        : NEGOCIO.entrega.tiempoEstimado.retiro,
+      entrante.modoEntrega === "delivery" ? config.tiempoDelivery : config.tiempoRetiro,
     falloInyeccion: false,
-    datosPago,
+    datosPago: { aliasMp: config.aliasMp, whatsappNumero: config.whatsappNumero },
     creadoEn: new Date().toISOString(),
   };
 
-  // Inyección en Fudo. Si falla, el pedido NO se pierde: se loguea y el
-  // cliente ve un botón para reenviar el detalle completo al local por WhatsApp.
+  // Inyección en Fudo. Si falla, el pedido NO se pierde: se loguea, se guarda
+  // en la base y el cliente ve un botón para reenviar el detalle al local.
   const resultado = await obtenerClienteFudo().crearPedido(pedido);
   if (!resultado.ok) {
     console.error(
@@ -212,6 +285,7 @@ async function crearPedido(entrante: PedidoEntrante): Promise<PedidoConfirmado> 
     pedido.falloInyeccion = true;
   }
 
+  await guardarPedido(pedido);
   return pedido;
 }
 

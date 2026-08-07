@@ -2,9 +2,14 @@ import { NEGOCIO, type DiaSemana, type RangoHorario } from "@/config/negocio";
 
 /**
  * Lógica de Abierto/Cerrado. Todo se calcula en la zona horaria del local
- * (config), así el resultado es el mismo en el servidor y en el navegador
- * del cliente aunque estén en otra zona.
+ * (America/Argentina/Buenos_Aires), así el resultado es el mismo en el
+ * servidor y en el navegador del cliente aunque estén en otra zona.
+ *
+ * Los horarios llegan por parámetro (vienen de la configuración editable en
+ * el admin); si no se pasan, se usan los de config/negocio.ts.
  */
+
+export type HorariosSemana = Record<DiaSemana, RangoHorario[]>;
 
 type MomentoLocal = {
   dia: DiaSemana;
@@ -53,26 +58,32 @@ function dentroDelRango(minutos: number, rango: RangoHorario): boolean {
   return minutos >= desde;
 }
 
-export function estaAbierto(fecha: Date = new Date()): boolean {
+export function estaAbierto(
+  horarios: HorariosSemana = NEGOCIO.horarios,
+  fecha: Date = new Date()
+): boolean {
   const ahora = ahoraEnLocal(fecha);
-  const rangosHoy = NEGOCIO.horarios[ahora.dia] ?? [];
+  const rangosHoy = horarios[ahora.dia] ?? [];
   if (rangosHoy.some((r) => dentroDelRango(ahora.minutos, r))) return true;
 
   // Un rango de ayer que cruza medianoche también puede tenernos abiertos
   const ayer = ((ahora.dia + 6) % 7) as DiaSemana;
-  const rangosAyer = NEGOCIO.horarios[ayer] ?? [];
+  const rangosAyer = horarios[ayer] ?? [];
   return rangosAyer.some(
     (r) => aMinutos(r.hasta) < aMinutos(r.desde) && ahora.minutos < aMinutos(r.hasta)
   );
 }
 
 /** Texto tipo "hoy a las 19:00" o "el sábado a las 21:30" para el botón de cerrado */
-export function proximaApertura(fecha: Date = new Date()): string {
+export function proximaApertura(
+  horarios: HorariosSemana = NEGOCIO.horarios,
+  fecha: Date = new Date()
+): string {
   const ahora = ahoraEnLocal(fecha);
 
   for (let salto = 0; salto < 8; salto++) {
     const dia = ((ahora.dia + salto) % 7) as DiaSemana;
-    const rangos = (NEGOCIO.horarios[dia] ?? [])
+    const rangos = (horarios[dia] ?? [])
       .slice()
       .sort((a, b) => aMinutos(a.desde) - aMinutos(b.desde));
 

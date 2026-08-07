@@ -8,25 +8,38 @@ import {
   useMemo,
   useState,
 } from "react";
-import type { ModoEntrega } from "@/lib/tipos";
+import type { ModoEntrega, SeleccionAcompanamientos } from "@/lib/tipos";
 
 /**
  * Estado del carrito, persistido en localStorage para que sobreviva
  * recargas y visitas futuras. Guarda un snapshot de nombre/precio para
  * mostrar en la UI; el servidor recalcula todo al confirmar.
  *
- * Cada línea tiene su propio `lineaId`: el mismo producto con aclaraciones
- * distintas ("sin verdeo" / sin nada) son líneas separadas, así ninguna
- * aclaración se pisa ni se pierde.
+ * Cada línea tiene su propio `lineaId`: el mismo producto con aclaraciones o
+ * modificadores distintos son líneas separadas, nada se pisa ni se pierde.
+ *
+ * Los acompañamientos (salsas/palitos) viven aparte de los ítems: se eligen
+ * una sola vez en el checkout y NO se resetean si el cliente vuelve a tocar
+ * el carrito.
  */
+
+export type ModificadorElegido = {
+  grupoId: string;
+  opcionIds: string[];
+  /** Snapshot para mostrar sin volver a consultar el catálogo */
+  etiqueta: string;
+  precioExtra: number;
+};
 
 export type ItemEnCarrito = {
   lineaId: string;
   productoId: string;
   nombre: string;
+  /** Precio unitario CON modificadores incluidos (snapshot para la UI) */
   precio: number;
   cantidad: number;
   aclaracion?: string;
+  modificadores: ModificadorElegido[];
 };
 
 export type DatosCliente = {
@@ -40,13 +53,16 @@ type EstadoCarrito = {
   items: ItemEnCarrito[];
   modoEntrega: ModoEntrega;
   aclaracionGeneral: string;
+  acompanamientos: SeleccionAcompanamientos;
 };
 
 type ContextoCarrito = EstadoCarrito & {
   cantidadTotal: number;
   subtotal: number;
   agregar: (
-    item: Omit<ItemEnCarrito, "cantidad" | "lineaId">,
+    item: Omit<ItemEnCarrito, "cantidad" | "lineaId" | "modificadores"> & {
+      modificadores?: ModificadorElegido[];
+    },
     cantidad?: number
   ) => void;
   cambiarCantidad: (lineaId: string, cantidad: number) => void;
@@ -55,18 +71,23 @@ type ContextoCarrito = EstadoCarrito & {
   vaciar: () => void;
   setModoEntrega: (modo: ModoEntrega) => void;
   setAclaracionGeneral: (texto: string) => void;
+  setAcompanamiento: (id: string, cantidad: number) => void;
+  setPalitos: (pares: number | null) => void;
   /** Sincroniza precios cuando el servidor avisa que el catálogo cambió */
   actualizarPrecios: (precios: { productoId: string; precio: number }[]) => void;
   listo: boolean;
 };
 
-const CLAVE_CARRITO = "abraham.carrito.v2";
+const CLAVE_CARRITO = "abraham.carrito.v3";
 export const CLAVE_CLIENTE = "abraham.cliente.v1";
+
+const acompanamientosVacios: SeleccionAcompanamientos = { cantidades: {}, palitos: null };
 
 const estadoInicial: EstadoCarrito = {
   items: [],
   modoEntrega: "delivery",
   aclaracionGeneral: "",
+  acompanamientos: acompanamientosVacios,
 };
 
 function nuevoLineaId(): string {
@@ -75,13 +96,21 @@ function nuevoLineaId(): string {
     : `${Date.now()}-${Math.random()}`;
 }
 
+function mismosModificadores(a: ModificadorElegido[], b: ModificadorElegido[]): boolean {
+  if (a.length !== b.length) return false;
+  const clave = (m: ModificadorElegido) => `${m.grupoId}:${[...m.opcionIds].sort().join(",")}`;
+  const setA = a.map(clave).sort().join("|");
+  const setB = b.map(clave).sort().join("|");
+  return setA === setB;
+}
+
 /**
  * Valida la forma de lo que haya en localStorage: si algo no cierra (versión
  * vieja, corrupción parcial), se descarta esa parte y la app arranca limpia
  * en vez de romperse en el render.
  */
 function validarEstadoGuardado(crudo: unknown): EstadoCarrito {
-  const estado = { ...estadoInicial };
+  const estado = { ...estadoInicial, acompanamientos: { ...acompanamientosVacios } };
   if (typeof crudo !== "object" || crudo === null) return estado;
   const objeto = crudo as Record<string, unknown>;
 
@@ -106,6 +135,14 @@ function validarEstadoGuardado(crudo: unknown): EstadoCarrito {
         precio: i.precio as number,
         cantidad: Math.min(99, Math.floor(i.cantidad as number)),
         aclaracion: typeof i.aclaracion === "string" ? i.aclaracion : undefined,
+        modificadores: Array.isArray(i.modificadores)
+          ? (i.modificadores as ModificadorElegido[]).filter(
+              (m) =>
+                typeof m === "object" && m !== null &&
+                typeof m.grupoId === "string" && Array.isArray(m.opcionIds) &&
+                typeof m.etiqueta === "string" && typeof m.precioExtra === "number"
+            )
+          : [],
       }));
   }
   if (objeto.modoEntrega === "delivery" || objeto.modoEntrega === "retiro") {
@@ -113,6 +150,22 @@ function validarEstadoGuardado(crudo: unknown): EstadoCarrito {
   }
   if (typeof objeto.aclaracionGeneral === "string") {
     estado.aclaracionGeneral = objeto.aclaracionGeneral;
+  }
+  const acomp = objeto.acompanamientos as Record<string, unknown> | undefined;
+  if (typeof acomp === "object" && acomp !== null) {
+    if (typeof acomp.cantidades === "object" && acomp.cantidades !== null) {
+      for (const [id, cantidad] of Object.entries(acomp.cantidades)) {
+        if (typeof cantidad === "number" && cantidad >= 1 && cantidad <= 99) {
+          estado.acompanamientos.cantidades[id] = Math.floor(cantidad);
+        }
+      }
+    }
+    if (
+      acomp.palitos === null ||
+      (typeof acomp.palitos === "number" && acomp.palitos >= 0 && acomp.palitos <= 20)
+    ) {
+      estado.acompanamientos.palitos = acomp.palitos as number | null;
+    }
   }
   return estado;
 }
@@ -144,13 +197,20 @@ export function ProveedorCarrito({ children }: { children: React.ReactNode }) {
   }, [estado, listo]);
 
   const agregar = useCallback(
-    (item: Omit<ItemEnCarrito, "cantidad" | "lineaId">, cantidad = 1) => {
+    (
+      item: Omit<ItemEnCarrito, "cantidad" | "lineaId" | "modificadores"> & {
+        modificadores?: ModificadorElegido[];
+      },
+      cantidad = 1
+    ) => {
+      const modificadores = item.modificadores ?? [];
       setEstado((previo) => {
-        // Solo se fusionan líneas idénticas: mismo producto y misma aclaración
+        // Solo se fusionan líneas idénticas: mismo producto, aclaración y modificadores
         const existente = previo.items.find(
           (i) =>
             i.productoId === item.productoId &&
-            (i.aclaracion ?? "") === (item.aclaracion ?? "")
+            (i.aclaracion ?? "") === (item.aclaracion ?? "") &&
+            mismosModificadores(i.modificadores, modificadores)
         );
         if (existente) {
           return {
@@ -164,7 +224,10 @@ export function ProveedorCarrito({ children }: { children: React.ReactNode }) {
         }
         return {
           ...previo,
-          items: [...previo.items, { ...item, cantidad, lineaId: nuevoLineaId() }],
+          items: [
+            ...previo.items,
+            { ...item, modificadores, cantidad, lineaId: nuevoLineaId() },
+          ],
         };
       });
     },
@@ -200,7 +263,11 @@ export function ProveedorCarrito({ children }: { children: React.ReactNode }) {
   }, []);
 
   const vaciar = useCallback(() => {
-    setEstado((previo) => ({ ...estadoInicial, modoEntrega: previo.modoEntrega }));
+    setEstado((previo) => ({
+      ...estadoInicial,
+      acompanamientos: { cantidades: {}, palitos: null },
+      modoEntrega: previo.modoEntrega,
+    }));
   }, []);
 
   const setModoEntrega = useCallback((modo: ModoEntrega) => {
@@ -211,13 +278,31 @@ export function ProveedorCarrito({ children }: { children: React.ReactNode }) {
     setEstado((previo) => ({ ...previo, aclaracionGeneral: texto }));
   }, []);
 
+  const setAcompanamiento = useCallback((id: string, cantidad: number) => {
+    setEstado((previo) => {
+      const cantidades = { ...previo.acompanamientos.cantidades };
+      if (cantidad <= 0) delete cantidades[id];
+      else cantidades[id] = Math.min(99, Math.floor(cantidad));
+      return { ...previo, acompanamientos: { ...previo.acompanamientos, cantidades } };
+    });
+  }, []);
+
+  const setPalitos = useCallback((pares: number | null) => {
+    setEstado((previo) => ({
+      ...previo,
+      acompanamientos: { ...previo.acompanamientos, palitos: pares },
+    }));
+  }, []);
+
   const actualizarPrecios = useCallback(
     (precios: { productoId: string; precio: number }[]) => {
       setEstado((previo) => ({
         ...previo,
         items: previo.items.map((i) => {
           const nuevo = precios.find((p) => p.productoId === i.productoId);
-          return nuevo ? { ...i, precio: nuevo.precio } : i;
+          if (!nuevo) return i;
+          const extras = i.modificadores.reduce((s, m) => s + m.precioExtra, 0);
+          return { ...i, precio: nuevo.precio + extras };
         }),
       }));
     },
@@ -238,6 +323,8 @@ export function ProveedorCarrito({ children }: { children: React.ReactNode }) {
       vaciar,
       setModoEntrega,
       setAclaracionGeneral,
+      setAcompanamiento,
+      setPalitos,
       actualizarPrecios,
       listo,
     };
@@ -251,6 +338,8 @@ export function ProveedorCarrito({ children }: { children: React.ReactNode }) {
     vaciar,
     setModoEntrega,
     setAclaracionGeneral,
+    setAcompanamiento,
+    setPalitos,
     actualizarPrecios,
   ]);
 

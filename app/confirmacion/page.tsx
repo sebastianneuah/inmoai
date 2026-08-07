@@ -159,12 +159,30 @@ export default function PaginaConfirmacion() {
             <li key={indice} className="flex justify-between gap-3">
               <span>
                 {item.cantidad}× {item.nombre}
+                {item.modificadores?.length > 0 && (
+                  <span className="text-tinta-suave">
+                    {" "}
+                    ({item.modificadores.map((m) => m.nombre).join(", ")})
+                  </span>
+                )}
                 {item.aclaracion && (
                   <span className="text-tinta-suave"> ({item.aclaracion})</span>
                 )}
               </span>
               <span className="shrink-0">
                 {formatearPrecio(item.precioUnitario * item.cantidad)}
+              </span>
+            </li>
+          ))}
+          {pedido.acompanamientos?.map((a, indice) => (
+            <li key={`acomp-${indice}`} className="flex justify-between gap-3 text-tinta-suave">
+              <span>
+                {a.cantidad}× {a.nombre}
+              </span>
+              <span className="shrink-0">
+                {a.precioUnitario === 0
+                  ? "sin cargo"
+                  : formatearPrecio(a.precioUnitario * a.cantidad)}
               </span>
             </li>
           ))}

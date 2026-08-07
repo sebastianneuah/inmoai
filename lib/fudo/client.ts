@@ -1,4 +1,5 @@
 import { NEGOCIO } from "@/config/negocio";
+import { resumenAcompanamientos } from "@/lib/whatsapp";
 import type { ClienteFudo, ResultadoInyeccion } from "@/lib/fudo/types";
 import type { PedidoConfirmado } from "@/lib/tipos";
 
@@ -50,6 +51,9 @@ function armarPayload(pedido: PedidoConfirmado) {
   if (pedido.pago.metodo === "efectivo" && pedido.pago.pagaCon !== "justo") {
     notas.push(`Paga con $${pedido.pago.pagaCon} — vuelto $${pedido.vuelto}`);
   }
+  // Salsas y palitos viajan en la nota del pedido para que cocina los vea junto al resto
+  const acompanamientos = resumenAcompanamientos(pedido);
+  if (acompanamientos) notas.push(`ACOMPAÑAMIENTOS: ${acompanamientos}`);
   if (pedido.aclaracionGeneral) notas.push(pedido.aclaracionGeneral);
   notas.push(`Pedido web #${pedido.numero}`);
 
@@ -60,7 +64,10 @@ function armarPayload(pedido: PedidoConfirmado) {
         productId: i.productoId,
         quantity: i.cantidad,
         price: i.precioUnitario,
-        comment: i.aclaracion ?? null,
+        comment:
+          [i.aclaracion, i.modificadores?.map((m) => m.nombre).join(", ")]
+            .filter(Boolean)
+            .join(" · ") || null,
       })),
       customer: {
         name: pedido.cliente.nombre,

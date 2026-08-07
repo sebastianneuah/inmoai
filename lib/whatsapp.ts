@@ -14,10 +14,24 @@ export function mensajeComprobante(pedido: PedidoConfirmado): string {
 }
 
 /**
+ * Línea de acompañamientos para los mensajes y la nota de Fudo. Los palitos
+ * ya vienen dentro de `acompanamientos`; si el cliente pidió cero se dice
+ * explícitamente, para que en el local no los agreguen "por las dudas".
+ */
+export function resumenAcompanamientos(pedido: PedidoConfirmado): string {
+  const partes = (pedido.acompanamientos ?? []).map(
+    (a) => `${a.cantidad}× ${a.nombre}`
+  );
+  if (pedido.palitos === 0) partes.push("SIN palitos");
+  return partes.join(", ");
+}
+
+/**
  * Mensaje de respaldo con el detalle completo del pedido, para cuando la
  * inyección a Fudo falló y el local tiene que cargarlo a mano.
  */
 export function mensajeRespaldoPedido(pedido: PedidoConfirmado): string {
+  const acompanamientos = resumenAcompanamientos(pedido);
   const lineas = [
     `⚠️ PEDIDO WEB #${pedido.numero} (cargar a mano — no entró al sistema)`,
     ``,
@@ -28,8 +42,11 @@ export function mensajeRespaldoPedido(pedido: PedidoConfirmado): string {
     ``,
     ...pedido.items.map(
       (i) =>
-        `• ${i.cantidad}× ${i.nombre} — ${formatearPrecio(i.precioUnitario * i.cantidad)}${i.aclaracion ? ` [${i.aclaracion}]` : ""}`
+        `• ${i.cantidad}× ${i.nombre}${
+          i.modificadores?.length ? ` [${i.modificadores.map((m) => m.nombre).join(", ")}]` : ""
+        } — ${formatearPrecio(i.precioUnitario * i.cantidad)}${i.aclaracion ? ` (${i.aclaracion})` : ""}`
     ),
+    acompanamientos ? `ACOMPAÑAMIENTOS: ${acompanamientos}` : "",
     pedido.aclaracionGeneral ? `Aclaración: ${pedido.aclaracionGeneral}` : "",
     ``,
     pedido.costoEnvio > 0 ? `Envío: ${formatearPrecio(pedido.costoEnvio)}` : "",
