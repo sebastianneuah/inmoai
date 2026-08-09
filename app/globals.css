@@ -6,9 +6,17 @@
   html {
     -webkit-tap-highlight-color: transparent;
     scroll-behavior: smooth;
+    /* Sensación de app: el rebote del scroll no descubre el fondo del navegador */
+    overscroll-behavior-y: none;
   }
   body {
-    @apply bg-white text-tinta antialiased;
+    @apply bg-marfil text-tinta antialiased;
+    /* La barra de estado del celular queda del color del header */
+    background-color: #141414;
+  }
+  /* El contenido real vive sobre el fondo claro */
+  body > * {
+    @apply bg-marfil;
   }
   /* Foco visible para navegación por teclado, en rojo de marca */
   :focus-visible {

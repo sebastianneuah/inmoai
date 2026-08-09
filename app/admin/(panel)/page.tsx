@@ -55,6 +55,7 @@ export default async function DashboardAdmin() {
             ["/admin/productos", "🍣 Productos", "Precios, fotos, agotados, destacados"],
             ["/admin/categorias", "📂 Categorías", "Crear, ordenar, activar"],
             ["/admin/acompanamientos", "🥢 Acompañamientos", "Salsas, palitos y máximos del checkout"],
+            ["/admin/ads", "📣 Publicidades", "Promos del inicio, cross-selling y beneficios"],
             ["/admin/pedidos", "🧾 Pedidos", "Los pedidos del día y sus estados"],
             ["/admin/configuracion", "⚙️ Configuración", "Horarios, envío, alias, WhatsApp"],
           ] as const

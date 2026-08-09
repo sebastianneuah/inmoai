@@ -4,15 +4,18 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Acompanamiento, PedidoEntrante, Producto, RespuestaApiPedidos } from "@/lib/tipos";
-import type { HorariosSemana } from "@/lib/horarios";
+import type { Publicidad } from "@/lib/tienda/publicidades";
 import { formatearPrecio } from "@/lib/precio";
 import { telefonoValido } from "@/lib/validacion";
 import { costoEnvioDelivery, hayZonas } from "@/lib/envio";
-import { useAbierto } from "@/lib/use-abierto";
 import { guardarUltimoPedido } from "@/lib/ultimo-pedido";
+import { agregarAlHistorial } from "@/lib/historial";
 import { registrarEvento } from "@/lib/analytics";
 import { CLAVE_CLIENTE, useCarrito, type DatosCliente } from "@/components/carrito";
 import { PasoAcompanamientos } from "@/components/paso-acompanamientos";
+import { useEstadoLocal } from "@/components/app/estado-local";
+import { BannerPublicidad, medirConversionAd } from "@/components/app/publicidad";
+import { CLAVE_PEDIDO_HECHO } from "@/components/app/aviso-instalar";
 import { NEGOCIO } from "@/config/negocio";
 
 type ConfigCheckout = {
@@ -41,19 +44,18 @@ function sugerenciasDePago(total: number): number[] {
 export function FlujoCheckout({
   acompanamientos,
   sugeridos,
+  adCarrito,
   config,
-  horarios,
-  estadoInicial,
 }: {
   acompanamientos: Acompanamiento[];
   sugeridos: Producto[];
+  adCarrito?: Publicidad;
   config: ConfigCheckout;
-  horarios: HorariosSemana;
-  estadoInicial: { abierto: boolean; proxima: string };
 }) {
   const router = useRouter();
   const carrito = useCarrito();
-  const { abierto, proxima, calculado } = useAbierto(estadoInicial, horarios);
+  // El estado del local lo calcula el App Shell una sola vez para toda la app
+  const { abierto, proxima, calculado } = useEstadoLocal();
 
   const [paso, setPaso] = useState<Paso>("carrito");
   const [cliente, setCliente] = useState<DatosCliente>({
@@ -209,8 +211,11 @@ export function FlujoCheckout({
         return;
       }
       guardarUltimoPedido(datos.pedido);
+      agregarAlHistorial(datos.pedido);
       try {
         localStorage.setItem(CLAVE_CLIENTE, JSON.stringify(cliente));
+        // Habilita la invitación a instalar la app (recién tras el primer pedido)
+        localStorage.setItem(CLAVE_PEDIDO_HECHO, "si");
       } catch {
         // si localStorage falla, la confirmación igual se muestra
       }
@@ -219,6 +224,7 @@ export function FlujoCheckout({
         valor: datos.pedido.total,
         entrega: datos.pedido.modoEntrega,
       });
+      medirConversionAd(datos.pedido.total);
       setPedidoEnviado(true);
       carrito.vaciar();
       router.push("/confirmacion");
@@ -231,11 +237,17 @@ export function FlujoCheckout({
 
   if (carrito.listo && carrito.items.length === 0 && !pedidoEnviado) {
     return (
-      <main className="mx-auto max-w-2xl px-4 py-16 text-center">
-        <p className="text-lg font-bold">Tu carrito está vacío</p>
+      <main className="mx-auto max-w-2xl px-4 py-20 text-center">
+        <p className="text-5xl" aria-hidden>
+          🛍
+        </p>
+        <p className="mt-3 text-lg font-black">Tu pedido está vacío</p>
+        <p className="mt-1 text-sm text-tinta-suave">
+          Agregá algo rico del menú y volvé por acá.
+        </p>
         <Link
           href="/"
-          className="mt-4 inline-block rounded-xl bg-fuego px-6 py-3 font-black text-white"
+          className="mt-5 inline-block rounded-xl bg-fuego px-6 py-3.5 font-black text-white"
         >
           Ver el menú
         </Link>
@@ -262,14 +274,25 @@ export function FlujoCheckout({
   return (
     <main className="mx-auto max-w-2xl px-4 pb-44 pt-4">
       <div className="flex items-center gap-3">
-        <button
-          onClick={() => (paso === "datos" ? setPaso("carrito") : router.push("/"))}
-          aria-label="Volver"
-          className="grid h-11 w-11 place-items-center rounded-full bg-marfil text-lg"
-        >
-          ←
-        </button>
-        <h1 className="text-xl font-black">{paso === "carrito" ? "Tu pedido" : "Entrega y pago"}</h1>
+        {paso === "datos" && (
+          <button
+            onClick={() => setPaso("carrito")}
+            aria-label="Volver al pedido"
+            className="grid h-11 w-11 place-items-center rounded-full bg-white text-lg shadow-sm"
+          >
+            ←
+          </button>
+        )}
+        <div>
+          <h1 className="text-2xl font-black">
+            {paso === "carrito" ? "Tu pedido" : "Entrega y pago"}
+          </h1>
+          {paso === "carrito" && carrito.cantidadTotal > 0 && (
+            <p className="text-sm text-tinta-suave">
+              {carrito.cantidadTotal} {carrito.cantidadTotal === 1 ? "producto" : "productos"}
+            </p>
+          )}
+        </div>
       </div>
 
       {/* Indicador de pasos */}
@@ -429,6 +452,9 @@ export function FlujoCheckout({
               </ul>
             </section>
           )}
+
+          {/* Espacio del carrito: primero cross-sell propio, después la campaña */}
+          <BannerPublicidad publicidad={adCarrito} slot="carrito" compacto />
         </>
       ) : (
         <>
@@ -664,7 +690,7 @@ export function FlujoCheckout({
       )}
 
       {/* ── Barra fija inferior ── */}
-      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-gray-200 bg-white p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+      <div className="fixed inset-x-0 bottom-[calc(3.5rem+env(safe-area-inset-bottom))] z-30 border-t border-gray-200 bg-white p-3">
         <div className="mx-auto max-w-2xl">
           <div className="flex justify-between text-sm text-tinta-suave">
             <span>{paso === "carrito" ? "Subtotal" : "Total"}</span>

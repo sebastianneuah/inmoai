@@ -2,22 +2,18 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { NEGOCIO } from "@/config/negocio";
-import { formatearPrecio } from "@/lib/precio";
-import {
-  linkWhatsApp,
-  mensajeComprobante,
-  mensajeRespaldoPedido,
-} from "@/lib/whatsapp";
-import { leerUltimoPedido } from "@/lib/ultimo-pedido";
+import type { Publicidad } from "@/lib/tienda/publicidades";
 import type { PedidoConfirmado } from "@/lib/tipos";
+import { formatearPrecio } from "@/lib/precio";
+import { linkWhatsApp, mensajeComprobante, mensajeRespaldoPedido } from "@/lib/whatsapp";
+import { leerUltimoPedido } from "@/lib/ultimo-pedido";
+import { BannerPublicidad } from "@/components/app/publicidad";
 
 /**
- * Pantalla de confirmación: número de pedido, resumen, tiempo estimado e
- * instrucciones de pago. Si el pago es por transferencia, acá vive el bloque
- * del alias + botón de WhatsApp para el comprobante.
+ * Confirmación del pedido: número, estado, instrucciones de pago y — recién
+ * después de todo eso — un espacio promocional. Nunca antes de confirmar.
  */
-export default function PaginaConfirmacion() {
+export function PantallaConfirmacion({ ad }: { ad?: Publicidad }) {
   const [pedido, setPedido] = useState<PedidoConfirmado | null>(null);
   const [cargando, setCargando] = useState(true);
   const [aliasCopiado, setAliasCopiado] = useState(false);
@@ -37,15 +33,21 @@ export default function PaginaConfirmacion() {
     }
   }
 
-  if (cargando) return null;
+  if (cargando) {
+    return (
+      <main className="mx-auto max-w-2xl px-4 pt-8">
+        <div className="h-32 animate-pulse rounded-2xl bg-white" />
+      </main>
+    );
+  }
 
   if (!pedido) {
     return (
-      <main className="mx-auto max-w-2xl px-4 py-16 text-center">
-        <p className="text-lg font-bold">No encontramos un pedido reciente</p>
+      <main className="mx-auto max-w-2xl px-4 py-20 text-center">
+        <p className="text-lg font-black">No encontramos un pedido reciente</p>
         <Link
           href="/"
-          className="mt-4 inline-block rounded-xl bg-fuego px-6 py-3 font-black text-white"
+          className="mt-5 inline-block rounded-xl bg-fuego px-6 py-3.5 font-black text-white"
         >
           Ir al menú
         </Link>
@@ -57,12 +59,12 @@ export default function PaginaConfirmacion() {
   const tieneWhatsApp = Boolean(pedido.datosPago.whatsappNumero);
 
   return (
-    <main className="mx-auto max-w-2xl px-4 pb-16 pt-8">
-      <div className="text-center">
-        <p className="text-5xl" aria-hidden>
-          ✅
-        </p>
-        <h1 className="mt-2 text-2xl font-black">¡Pedido confirmado!</h1>
+    <main className="mx-auto max-w-2xl px-4 pb-8 pt-6">
+      <div className="rounded-3xl bg-white p-6 text-center shadow-sm">
+        <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-green-100 text-3xl">
+          ✓
+        </span>
+        <h1 className="mt-3 text-2xl font-black">¡Pedido confirmado!</h1>
         <p className="mt-1 text-lg">
           Número: <b className="text-fuego">#{pedido.numero}</b>
         </p>
@@ -72,9 +74,9 @@ export default function PaginaConfirmacion() {
         </p>
       </div>
 
-      {/* Aviso si la inyección a Fudo falló: el cliente reenvía el pedido al local */}
+      {/* Si la inyección a Fudo falló, el cliente reenvía el pedido al local */}
       {pedido.falloInyeccion && (
-        <div className="mt-5 rounded-2xl border-2 border-fuego bg-fuego-claro p-4">
+        <div className="mt-4 rounded-2xl border-2 border-fuego bg-fuego-claro p-4">
           <p className="font-black text-fuego">📢 Un paso más para asegurar tu pedido</p>
           <p className="mt-1 text-sm">
             Tuvimos un problema técnico para pasar el pedido a cocina. Tocá el botón y
@@ -85,7 +87,7 @@ export default function PaginaConfirmacion() {
               href={linkWhatsApp(pedido.datosPago.whatsappNumero, mensajeRespaldoPedido(pedido))}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 grid min-h-14 place-items-center rounded-xl bg-fuego px-4 text-center font-black text-white active:bg-fuego-oscuro"
+              className="mt-3 grid min-h-13 place-items-center rounded-xl bg-fuego px-4 py-3.5 text-center font-black text-white active:bg-fuego-oscuro"
             >
               📲 Enviar mi pedido por WhatsApp
             </a>
@@ -99,7 +101,7 @@ export default function PaginaConfirmacion() {
 
       {/* Instrucciones de pago */}
       {esTransferencia ? (
-        <div className="mt-5 rounded-2xl border-2 border-tinta p-4">
+        <div className="mt-4 rounded-2xl border-2 border-tinta bg-white p-4">
           <h2 className="text-lg font-black">Transferí {formatearPrecio(pedido.total)}</h2>
           {pedido.datosPago.aliasMp ? (
             <div className="mt-3 flex items-center justify-between gap-3 rounded-xl bg-marfil p-3">
@@ -120,21 +122,21 @@ export default function PaginaConfirmacion() {
             </p>
           )}
           <p className="mt-3 rounded-xl bg-fuego-claro px-3 py-2 text-center text-sm font-black text-fuego">
-            ⚠️ {NEGOCIO.textos.avisoTransferencia}
+            ⚠️ Tu pedido se prepara cuando recibimos el comprobante
           </p>
           {tieneWhatsApp && (
             <a
               href={linkWhatsApp(pedido.datosPago.whatsappNumero, mensajeComprobante(pedido))}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 grid min-h-14 place-items-center rounded-xl bg-fuego px-4 text-center font-black text-white active:bg-fuego-oscuro"
+              className="mt-3 grid min-h-13 place-items-center rounded-xl bg-fuego px-4 py-3.5 text-center font-black text-white active:bg-fuego-oscuro"
             >
               📲 Enviar comprobante por WhatsApp
             </a>
           )}
         </div>
       ) : (
-        <div className="mt-5 rounded-2xl border-2 border-tinta p-4">
+        <div className="mt-4 rounded-2xl border-2 border-tinta bg-white p-4">
           <h2 className="text-lg font-black">Pagás en efectivo</h2>
           <p className="mt-1 text-sm">
             {pedido.pago.metodo === "efectivo" && pedido.pago.pagaCon === "justo" ? (
@@ -151,8 +153,13 @@ export default function PaginaConfirmacion() {
         </div>
       )}
 
+      {/* Espacio promocional: recién acá, con la venta ya cerrada */}
+      <div className="-mx-4">
+        <BannerPublicidad publicidad={ad} slot="confirmacion" compacto />
+      </div>
+
       {/* Resumen */}
-      <div className="mt-5 rounded-2xl bg-marfil p-4">
+      <div className="mt-2 rounded-2xl bg-white p-4 shadow-sm">
         <h2 className="font-black">Resumen</h2>
         <ul className="mt-2 space-y-1 text-sm">
           {pedido.items.map((item, indice) => (
@@ -190,7 +197,7 @@ export default function PaginaConfirmacion() {
         {pedido.aclaracionGeneral && (
           <p className="mt-2 text-sm text-tinta-suave">Nota: {pedido.aclaracionGeneral}</p>
         )}
-        <div className="mt-3 border-t border-gray-300 pt-2 text-sm">
+        <div className="mt-3 border-t border-gray-200 pt-2 text-sm">
           <div className="flex justify-between">
             <span>Subtotal</span>
             <span>{formatearPrecio(pedido.subtotal)}</span>
@@ -214,17 +221,25 @@ export default function PaginaConfirmacion() {
               {pedido.zonaEnvio && <> — Zona: {pedido.zonaEnvio}</>}
             </>
           ) : (
-            <>🏪 Retirás por: {NEGOCIO.entrega.direccionLocal}</>
+            <>🏪 Retirás por el local</>
           )}
         </p>
       </div>
 
-      <Link
-        href="/"
-        className="mt-6 block text-center text-sm font-bold text-tinta-suave underline"
-      >
-        Volver al menú
-      </Link>
+      <div className="mt-4 flex gap-2">
+        <Link
+          href="/"
+          className="grid min-h-12 flex-1 place-items-center rounded-xl bg-white font-black shadow-sm"
+        >
+          Volver al menú
+        </Link>
+        <Link
+          href="/cuenta"
+          className="grid min-h-12 flex-1 place-items-center rounded-xl bg-tinta font-black text-white"
+        >
+          Mis pedidos
+        </Link>
+      </div>
     </main>
   );
 }

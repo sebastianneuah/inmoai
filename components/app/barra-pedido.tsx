@@ -1,17 +1,22 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useCarrito } from "@/components/carrito";
 import { formatearPrecio } from "@/lib/precio";
 import { registrarEvento } from "@/lib/analytics";
 
-/** Barra fija inferior con el resumen del carrito, siempre visible. */
-export function BarraCarrito() {
+/**
+ * Barra flotante del pedido en curso. Va por encima de la navegación
+ * inferior y solo aparece mientras hay algo en el carrito; en la pantalla de
+ * Pedido no se muestra (ahí ya está todo a la vista).
+ */
+export function BarraPedido() {
   const { cantidadTotal, subtotal, listo } = useCarrito();
+  const ruta = usePathname();
   const [pulso, setPulso] = useState(false);
 
-  // Micro-feedback: el contador late cuando cambia la cantidad
   useEffect(() => {
     if (cantidadTotal === 0) return;
     setPulso(true);
@@ -19,14 +24,14 @@ export function BarraCarrito() {
     return () => clearTimeout(t);
   }, [cantidadTotal]);
 
-  if (!listo || cantidadTotal === 0) return null;
+  if (!listo || cantidadTotal === 0 || ruta.startsWith("/pedido")) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-20 border-t border-black/10 bg-white p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+    <div className="fixed inset-x-0 bottom-[calc(3.5rem+env(safe-area-inset-bottom))] z-30 px-3 pb-2">
       <Link
-        href="/checkout"
+        href="/pedido"
         onClick={() => registrarEvento("begin_checkout", { items: cantidadTotal, valor: subtotal })}
-        className="mx-auto flex min-h-14 max-w-2xl items-center justify-between rounded-xl bg-fuego px-5 font-black text-white active:bg-fuego-oscuro"
+        className="mx-auto flex min-h-13 max-w-2xl items-center justify-between rounded-2xl bg-fuego px-4 py-3 font-black text-white shadow-xl active:bg-fuego-oscuro"
       >
         <span className="flex items-center gap-2">
           <span

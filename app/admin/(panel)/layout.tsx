@@ -11,6 +11,7 @@ const SECCIONES = [
   ["/admin/productos", "Productos"],
   ["/admin/categorias", "Categorías"],
   ["/admin/acompanamientos", "Acompañamientos"],
+  ["/admin/ads", "Publicidades"],
   ["/admin/pedidos", "Pedidos"],
   ["/admin/configuracion", "Configuración"],
 ] as const;

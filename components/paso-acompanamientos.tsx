@@ -54,7 +54,7 @@ export function PasoAcompanamientos({
   }
 
   return (
-    <main className="mx-auto max-w-2xl px-4 pb-40 pt-4">
+    <main className="mx-auto max-w-2xl px-4 pb-44 pt-4">
       <div className="flex items-center gap-3">
         <button
           onClick={onVolver}
@@ -179,7 +179,7 @@ export function PasoAcompanamientos({
         No necesito salsas ni palitos
       </button>
 
-      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-gray-200 bg-white p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+      <div className="fixed inset-x-0 bottom-[calc(3.5rem+env(safe-area-inset-bottom))] z-30 border-t border-gray-200 bg-white p-3">
         <div className="mx-auto max-w-2xl">
           {extra > 0 && (
             <p className="mb-1 flex justify-between text-sm text-tinta-suave">
