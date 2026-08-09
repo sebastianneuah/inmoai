@@ -201,5 +201,106 @@ for (const [clave, valor] of Object.entries(configInicial)) {
 }
 console.log("Configuración inicial lista.");
 
+// ── Campañas de arranque ────────────────────────────────────────────────
+// Para que el hero y la sección de Beneficios no queden vacíos el primer día.
+// Todas son promociones propias de Abraham: se editan o se apagan desde
+// /admin/ads sin tocar código.
+const { rows: yaAds } = await pool.query("SELECT count(*)::int AS n FROM publicidades");
+if (yaAds[0].n === 0) {
+  const idPorNombre = async (parcial) => {
+    const r = await pool.query(
+      "SELECT id FROM productos WHERE nombre ILIKE $1 AND activo ORDER BY id LIMIT 1",
+      [`%${parcial}%`]
+    );
+    return r.rows[0]?.id ?? null;
+  };
+  const idCategoria = async (parcial) => {
+    const r = await pool.query("SELECT id FROM categorias WHERE nombre ILIKE $1 LIMIT 1", [
+      `%${parcial}%`,
+    ]);
+    return r.rows[0]?.id ?? null;
+  };
+
+  const campañas = [
+    {
+      nombre: "Promo 30 piezas",
+      titulo: "30 piezas a elección",
+      subtitulo: "Armá tu promo como más te guste",
+      cta: "Pedir ahora",
+      slot: "home_hero",
+      producto_id: await idPorNombre("Promo 30 piezas"),
+      prioridad: 10,
+    },
+    {
+      nombre: "Rolls premium",
+      titulo: "Nuestros Rolls Premium",
+      subtitulo: "Los favoritos de la casa",
+      cta: "Ver rolls",
+      slot: "home_hero",
+      categoria_id: await idCategoria("PREMIUM"),
+      prioridad: 5,
+    },
+    {
+      nombre: "Combos clásicos",
+      titulo: "Combos para compartir",
+      subtitulo: "Desde 12 piezas",
+      cta: "Ver combos",
+      slot: "home_medio",
+      categoria_id: await idCategoria("COMBOS"),
+    },
+    {
+      nombre: "Cross-sell postres",
+      titulo: "¿Cerramos con un postre?",
+      subtitulo: "Sumalo a tu pedido",
+      cta: "Ver postres",
+      slot: "carrito",
+      categoria_id: await idCategoria("POSTRES"),
+    },
+    {
+      nombre: "Gracias por tu pedido",
+      titulo: "¡Gracias por elegirnos!",
+      subtitulo: "Seguinos para enterarte de las promos primero",
+      cta: "Ver el menú",
+      slot: "confirmacion",
+    },
+    {
+      nombre: "Beneficio bebidas",
+      titulo: "Sumá una bebida",
+      subtitulo: "Bien fría, para acompañar",
+      cta: "Ver bebidas",
+      slot: "beneficios",
+      categoria_id: await idCategoria("BEBIDAS"),
+    },
+  ];
+
+  for (const c of campañas) {
+    await pool.query(
+      `INSERT INTO publicidades
+         (nombre, titulo, subtitulo, cta, slot, producto_id, categoria_id, prioridad)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`,
+      [c.nombre, c.titulo, c.subtitulo, c.cta, c.slot, c.producto_id ?? null,
+       c.categoria_id ?? null, c.prioridad ?? 0]
+    );
+  }
+  console.log(`Campañas de arranque: ${campañas.length}`);
+}
+
+// ── Destacados de arranque ──────────────────────────────────────────────
+// "Más pedidos" necesita al menos unos cuantos productos marcados.
+const { rows: yaDestacados } = await pool.query(
+  "SELECT count(*)::int AS n FROM productos WHERE destacado"
+);
+if (yaDestacados[0].n === 0) {
+  await pool.query(
+    `UPDATE productos SET destacado = true
+     WHERE id IN (
+       SELECT id FROM productos
+       WHERE activo AND disponible AND imagen_url IS NOT NULL
+       ORDER BY orden LIMIT 6
+     )`
+  );
+  console.log("Destacados de arranque marcados");
+}
+
 await pool.end();
 console.log("Seed completo.");
