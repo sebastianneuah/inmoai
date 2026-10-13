@@ -1,0 +1,87 @@
+@import '@fontsource-variable/inter';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-paper font-sans text-body text-ink antialiased;
+    overflow-x: hidden;
+    overscroll-behavior-y: none;
+  }
+
+  ::selection {
+    background: #111111;
+    color: #ffffff;
+  }
+
+  button,
+  a {
+    -webkit-touch-callout: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid #111111;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 16px; /* prevents iOS zoom on focus */
+  }
+}
+
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .pt-safe {
+    padding-top: var(--safe-top);
+  }
+  .pb-safe {
+    padding-bottom: var(--safe-bottom);
+  }
+  .eyebrow {
+    @apply text-micro font-medium uppercase;
+  }
+  .shimmer {
+    background: linear-gradient(90deg, #f2f0ed 0px, #f8f7f5 120px, #f2f0ed 240px);
+    background-size: 800px 100%;
+    @apply animate-shimmer;
+  }
+  .press {
+    @apply transition-transform duration-150 ease-ios active:scale-[0.97];
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
