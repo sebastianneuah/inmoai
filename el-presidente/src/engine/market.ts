@@ -51,7 +51,11 @@ export function wageDemand(s: GameState, p: Player, c: Club): number {
   w *= 1 + clamp(prestigeGap, -0.2, 0.5);
   if (p.clubId && s.clubs[p.clubId]?.division === 0) w *= 1.6; // viene del exterior
   if (s.assoc.rules.topeSalarial) w = Math.min(w, 120_000);
-  if (c.id === s.president.clubId) w *= 1 + (50 - s.ind.representantes) / 400;
+  if (c.id === s.president.clubId) {
+    w *= 1 + (50 - s.ind.representantes) / 400;
+    // los representantes saben cuándo un club tiene la caja llena
+    if (c.fin.cash > estimateRevenue(s, c) * 0.8) w *= 1.15;
+  }
   return Math.max(800, Math.round(w / 100) * 100);
 }
 

@@ -2,7 +2,7 @@
 import type { GameState, IndKey, Indicators, Character, Coach } from './types';
 import { IND_KEYS } from './types';
 import { clamp, avg } from './util';
-import { userClub, squad, positionOf, charsByRole } from './queries';
+import { userClub, squad, positionOf, charsByRole, careerLevel } from './queries';
 import { estimateRevenue } from './valuation';
 import { totalDebt } from './economy';
 
@@ -116,6 +116,9 @@ export function weeklyIndicators(s: GameState) {
   if (journalists.length) drift('periodistas', clamp(50 + avg(journalists.map((p) => p.opinion)) * 0.7), 0.06);
   const agents = charsByRole(s, 'representante');
   if (agents.length) drift('representantes', clamp(50 + avg(agents.map((p) => p.opinion)) * 0.7), 0.05);
+  // la influencia se erosiona si no se sostiene con cargos y aliados
+  const allies = Object.values(s.chars).filter((c) => c.active && c.tags.includes('aliado_usuario')).length;
+  drift('influencia', clamp(22 + careerLevel(s) * 11 + allies * 1.5 + (s.president.committee ? 6 : 0)), 0.015);
   // integridad vs riesgo: el riesgo baja lentamente si la integridad es alta
   drift('riesgo', clamp(ind.riesgo - (ind.integridad - 50) * 0.03), 1);
   // gobernabilidad derivada

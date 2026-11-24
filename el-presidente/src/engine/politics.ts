@@ -103,7 +103,7 @@ export function computeSupport(s: GameState, e: Election, rng?: RNG): Record<str
     let user: number;
     if (isOwn) user = ind.socios * 0.45 + ind.hinchas * 0.12 + ind.prestigio * 0.12 + ind.estabilidad * 0.1 + ind.integridad * 0.08 + ind.comision * 0.08 + titles * 6 + kept * 2 - broken * 3 + (s.flags.padronInflado ? 6 : 0);
     else user = ind.repNacional * 0.5 + ind.integridad * 0.15 + ind.influencia * 0.15 + 12;
-    user += e.campaignPoints * 0 + Number(s.flags[`campaign_${e.id}`] ?? 0);
+    user += Number(s.flags[`campaign_${e.id}`] ?? 0) * 0.5;
     for (const c of active) {
       if (c.isUser) out[c.id] = Math.max(5, user);
       else {
@@ -560,7 +560,7 @@ export function joinCommittee(s: GameState) {
   s.assoc.userOnCommittee = true;
   const out = s.assoc.committee.map((id) => s.chars[id]).sort((a, b) => a.influence - b.influence)[0];
   if (out) s.assoc.committee = s.assoc.committee.filter((id) => id !== out.id);
-  changeInd(s, 'influencia', 8);
+  changeInd(s, 'influencia', 6);
   s.career.positions.push({ pos: 'comite', label: 'Miembro del Comité Ejecutivo de la AAF', from: s.season, to: null });
   s.career.peakLevel = Math.max(s.career.peakLevel, 3);
   s.career.milestones.push({ season: s.season, week: s.week, text: 'Ingresaste al Comité Ejecutivo de la AAF' });
@@ -649,7 +649,7 @@ export function resolveProposal(s: GameState, rng: RNG, p: Proposal): string {
   p.result = { si, no, abst, passed };
   def.apply(s, passed);
   if (p.userVote === 'si' || p.byUser) {
-    changeInd(s, 'influencia', passed ? 3 : -2);
+    changeInd(s, 'influencia', passed ? 2 : -2);
     if (p.byUser) changeInd(s, 'presidentes', passed ? 3 : -3);
   } else if (p.userVote === 'no') changeInd(s, 'influencia', passed ? -1 : 2);
   if (p.proposerId && p.userVote) changeOpinion(s, p.proposerId, p.userVote === 'si' ? 6 : p.userVote === 'no' ? -6 : 0, p.userVote === 'si' ? `Votó a favor de su propuesta "${p.title}"` : `Votó en contra de su propuesta "${p.title}"`);
@@ -691,9 +691,10 @@ export function meetLeader(s: GameState, rng: RNG, charId: string, mode: 'reunio
       changeOpinion(s, ch.id, -3);
       return `${ch.name} rechazó formar una alianza: todavía no confía en vos.`;
     }
-    if (!ch.tags.includes('aliado_usuario')) ch.tags.push('aliado_usuario');
+    const isNew = !ch.tags.includes('aliado_usuario');
+    if (isNew) ch.tags.push('aliado_usuario');
     changeOpinion(s, ch.id, 10, 'Alianza política');
-    changeInd(s, 'influencia', 2);
+    if (isNew) changeInd(s, 'influencia', 1.5);
     // los de su bloque te miran mejor
     for (const o of charsByRole(s, 'presidente_club')) if (o.bloc === ch.bloc && o.id !== ch.id) changeOpinion(s, o.id, 2);
     return `Sellaste una alianza con ${ch.name}. Su bloque (${ch.bloc}) te ve con mejores ojos.`;
@@ -709,29 +710,35 @@ export function meetLeader(s: GameState, rng: RNG, charId: string, mode: 'reunio
 /** Inicio de campañas en el calendario. */
 export function seasonPolitics(s: GameState, rng: RNG): string[] {
   const notes: string[] = [];
-  // Elección del club propio
-  if (s.president.pos === 'club' && s.president.clubId && s.season >= s.president.mandateEnd && s.week === CAMPAIGN_START && !s.election) {
-    startClubElection(s, rng, s.president.clubId, true);
+  // Las elecciones nunca se superponen: si una está en curso, la siguiente espera su turno.
+  const busy = () => !!s.election && !s.election.done;
+  // Elección del club propio (si coincide con la de la AAF, se adelanta)
+  const assocDue = s.season >= s.assoc.nextElection;
+  if (s.president.pos === 'club' && s.president.clubId && s.season >= s.president.mandateEnd && !s.flags[`elec_club_${s.season}`] && !busy() && s.week >= (assocDue ? 10 : CAMPAIGN_START)) {
+    s.flags[`elec_club_${s.season}`] = true;
+    startClubElection(s, rng, s.president.clubId, true, assocDue && s.week < 13 ? 8 : Math.max(4, CLUB_ELECTION_WEEK - s.week));
     notes.push('Comenzó la campaña electoral en tu club. Revisá la sección Política.');
   }
   // AAF
-  if (s.season === s.assoc.nextElection && s.week === 20 && !s.election) {
+  if (assocDue && s.week >= 20 && !busy() && !s.flags[`elec_assoc_${s.season}`]) {
+    s.flags[`elec_assoc_${s.season}`] = true;
     const canRun = (s.president.pos === 'club' && (s.president.committee || s.ind.influencia >= 60)) || s.president.pos === 'asociacion';
     startBodyElection(s, rng, 'asociacion', s.president.pos === 'asociacion');
     if (canRun && s.president.pos !== 'asociacion') notes.push('Se abrió la elección de la AAF. Podés postularte desde Política.');
+    if (s.president.pos === 'asociacion') notes.push('Comenzó la campaña por tu reelección en la AAF.');
   }
   // CSF
-  if (s.season === s.confed.nextElection && s.week === 18 && !s.election) {
+  if (s.season >= s.confed.nextElection && s.week >= 18 && !busy() && !s.flags[`elec_confed_${s.season}`]) {
+    s.flags[`elec_confed_${s.season}`] = true;
     startBodyElection(s, rng, 'confederacion', s.president.pos === 'confederacion');
     if (s.president.pos === 'asociacion') notes.push('Se abrió la elección de la Confederación Sudamericana. Podés postularte desde Política.');
   }
   // FIF
-  if (s.season === s.fifa.nextElection && s.week === 16 && !s.election) {
+  if (s.season >= s.fifa.nextElection && s.week >= 16 && !busy() && !s.flags[`elec_fifa_${s.season}`]) {
+    s.flags[`elec_fifa_${s.season}`] = true;
     startBodyElection(s, rng, 'fifa', s.president.pos === 'fifa');
     if (s.president.pos === 'confederacion') notes.push('Se abrió la elección de la FIF. Podés postularte desde Política.');
   }
-  // Mandato vencido en organismo (si no hubo elección por solapamiento)
-  if (s.week === 1 && s.election?.done) s.election = null;
   // Clubes IA: elecciones de presidentes
   if (s.week === 39) {
     for (const c of Object.values(s.clubs)) {

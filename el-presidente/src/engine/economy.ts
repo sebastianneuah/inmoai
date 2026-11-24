@@ -290,6 +290,7 @@ export function startProject(s: GameState, f: FacilityKey, financed: boolean): s
   const upfront = financed ? cost * 0.1 : cost * 0.3;
   if (c.fin.cash < upfront) return `Se necesita un anticipo de ${money(upfront)}.`;
   book(s, 'obras', -upfront);
+  s.flags.lastProjectAbs = (s.season - s.startSeason) * 40 + s.week;
   const weeks = FACILITY_INFO[f].weeks;
   s.projects.push({ id: newId(s, 'pj'), facility: f, name: `${FACILITY_INFO[f].name} — nivel ${c.facilities[f] + 1}`, cost, paid: upfront, weeksTotal: weeks, weeksLeft: weeks, toLevel: c.facilities[f] + 1, startedAbs: (s.season - s.startSeason) * 40 + s.week, financed });
   if (financed) {

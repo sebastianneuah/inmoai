@@ -114,7 +114,7 @@ const ASOCIACION: EventDef[] = [
   {
     id: 'aso_invitacion_comite', cat: 'asociacion', title: 'Te invitan al Comité Ejecutivo', urg: 'importante', sev: 4, cd: 30,
     text: '{assocpres}, presidente de la {assoc}, te ofrece un lugar en el Comité Ejecutivo. "Necesitamos dirigentes como vos". Todos saben que nada es gratis en la asociación.',
-    when: (c) => c.s.president.pos === 'club' && !c.s.president.committee && c.ind.influencia >= 38 && (c.ind.asociacion >= 50 || c.ind.presidentes >= 55) && (c.club?.division ?? 3) <= 2, w: 5,
+    when: (c) => c.s.president.pos === 'club' && !c.s.president.committee && c.ind.influencia >= 45 && c.ind.repNacional >= 50 && (c.ind.asociacion >= 50 || c.ind.presidentes >= 55) && (c.club?.division ?? 3) <= 2 && (c.s.season > c.s.startSeason || c.s.week > 25), w: 5,
     opts: [
       { label: 'Aceptar y alinearte con el oficialismo', out: 'Te sumás al Comité Ejecutivo.', fx: { fn: (c) => joinCommittee(c.s), op: { assoc: 10 }, ind: { asociacion: 5 } } },
       { label: 'Aceptar con independencia', out: 'Asumís sin compromisos.', fx: { fn: (c) => joinCommittee(c.s), op: { assoc: -2 }, ind: { integridad: 2 } } },

@@ -3,6 +3,7 @@
 import { registerEvents, scaleMoney as sm, type Ctx, type EventDef } from './engine';
 import { clamp } from '../util';
 import { squad } from '../queries';
+import { makePlayer } from '../worldgen';
 import { estimateRevenue } from '../valuation';
 import { book } from '../economy';
 import { addNews } from '../news';
@@ -169,6 +170,17 @@ const SOCIOS: EventDef[] = [
       { label: 'Convocarla y dar la cara', out: 'Fuiste a la asamblea.', fx: { ind: { integridad: 3 } }, risk: { p: (c) => 0.25 + (50 - c.ind.socios) / 100, text: 'La asamblea votó un pedido de informes y una auditoría externa.', fx: { ind: { socios: -2, comision: -3, riesgo: 3 } } } },
       { label: 'Presentar un balance y un plan de gestión', out: 'Presentaste números y proyectos.', fx: { ind: { socios: 4, comision: 2 }, fn: (c) => { c.s.flags.balancePublishedAbs = c.abs; } } },
       { label: 'Rechazar por cuestiones formales', auto: true, out: 'La comisión rechazó el pedido.', fx: { ind: { socios: -6, gobernabilidad: -3 }, op: { char: -10 }, later: [{ w: [4, 10], fx: 'revenge', params: { news: '{char} denuncia autoritarismo en {club}' } }] } },
+    ],
+  },
+  {
+    id: 'soc_caja_ociosa', cat: 'socios', title: '"Hay plata: que se invierta"', urg: 'importante', sev: 3, cd: 20,
+    text: 'Los balances muestran una caja de {amount}. {char} y otras agrupaciones exigen que ese dinero "vuelva a la cancha y al club". Los hinchas piden refuerzos; el tesorero prefiere un fondo de reserva.',
+    bind: { char: 'lider_socios' }, amount: (c) => c.cash, when: (c) => !!c.club && c.cash > rev(c) * 0.7, w: 4,
+    opts: [
+      { label: 'Fichaje estrella con el 30% de la caja', out: 'Llega un refuerzo de jerarquía.', fx: { cash: (c) => -c.cash * 0.3, cat: 'fichajes', ind: { hinchas: 6, socios: 3 }, fn: (c) => { const xi = squad(c.s, c.club!.id).sort((a, b) => b.ovr - a.ovr); const top = xi[0]?.ovr ?? 70; const p = makePlayer(c.s, c.rng, { nat: c.rng.chance(0.6) ? 'ARG' : c.rng.pick(['URU', 'COL', 'BRA']), pos: c.rng.pick(['MED', 'DEL', 'DEF'] as const), ovr: top + c.rng.int(1, 4), age: c.rng.int(24, 29), club: c.club!, contractYears: 4 }); p.wage = Math.round(p.wage * 1.3); p.signedFee = Math.round(c.cash * 0.3); p.signedSeason = c.s.season; c.s.flags.lastSigningAbs = c.abs; return `Firma ${p.name} (nivel ${p.ovr}).`; } } },
+      { label: 'Plan de obras integral (25% de la caja)', out: 'Se lanzan obras en el estadio y la sede.', fx: { cash: (c) => -c.cash * 0.25, cat: 'obras', ind: { socios: 6, repNacional: 2 }, fn: (c) => { const f = c.club!.facilities; const k = (['estadio', 'social', 'entrenamiento', 'juveniles'] as const).find((x) => f[x] < 5); if (k) { f[k]++; if (k === 'estadio') c.club!.stadium.capacity = Math.round(c.club!.stadium.capacity * 1.12); c.s.career.works.push(`Ampliación: ${k} (${c.s.season})`); c.s.flags.lastProjectAbs = c.abs; } } } },
+      { label: 'Bajar la cuota social un 15%', out: 'Cuota más barata para todos los socios.', fx: { ind: { socios: 7, estabilidad: -2 }, op: { char: 8 }, fn: (c) => { c.s.economy.feeMult = Math.max(0.5, Math.round(c.s.economy.feeMult * 0.85 * 100) / 100); } } },
+      { label: 'Constituir un fondo de reserva', auto: true, out: 'El dinero queda guardado para tiempos difíciles.', fx: { ind: { socios: -4, hinchas: -5, estabilidad: 3, comision: 2 }, op: { char: -6, treasurer: 6 } } },
     ],
   },
   {
