@@ -10,6 +10,10 @@ import { fireNTCoach } from '../nationalteam';
 import { estimateRevenue } from '../valuation';
 
 const rev = (c: Ctx) => (c.club ? estimateRevenue(c.s, c.club) : 5_000_000);
+const camp = (c: Ctx, n: number) => {
+  const e = c.s.election;
+  if (e && !e.done) c.s.flags[`campaign_${e.id}`] = Number(c.s.flags[`campaign_${e.id}`] ?? 0) + n;
+};
 const mandateYear = (c: Ctx) => c.s.president.pos === 'club' && c.s.season >= c.s.president.mandateEnd;
 
 const POLITICA: EventDef[] = [
@@ -92,9 +96,9 @@ const ELECCIONES: EventDef[] = [
     text: 'Una encuesta publicada hoy te ubica varios puntos detrás de la oposición. Tus asesores proponen un golpe de efecto.',
     when: (c) => !!c.s.election && !c.s.election.done && c.s.election.userRunning && (c.s.election.candidates.find((x) => x.isUser)?.support ?? 50) < 48, w: 4, pos: ['club', 'asociacion', 'confederacion', 'fifa', 'sin_cargo'],
     opts: [
-      { label: 'Anunciar un refuerzo estrella', out: 'Anunciaste negociaciones por un refuerzo de jerarquía.', req: (c) => c.s.president.pos === 'club', reqText: 'Sólo como presidente de club', fx: { ind: { hinchas: 4 }, fn: (c) => { c.s.flags[`campaign_${c.s.election!.id}`] = Number(c.s.flags[`campaign_${c.s.election!.id}`] ?? 0) + 5; }, promise: { key: 'refuerzo', text: 'Traer un refuerzo de jerarquía', weeks: 12, weight: 1.2 } } },
-      { label: 'Bajar el precio de la cuota', out: 'Rebaja de cuotas anunciada.', req: (c) => c.s.president.pos === 'club', reqText: 'Sólo como presidente de club', fx: { fn: (c) => { c.s.economy.feeMult = Math.max(0.6, Math.round(c.s.economy.feeMult * 0.9 * 100) / 100); c.s.flags[`campaign_${c.s.election!.id}`] = Number(c.s.flags[`campaign_${c.s.election!.id}`] ?? 0) + 4; }, ind: { socios: 3, estabilidad: -2 } } },
-      { label: 'Campaña sucia contra el rival', out: 'Filtraste información del rival.', fx: { ind: { integridad: -5, periodistas: -2 }, fn: (c) => { c.s.flags[`campaign_${c.s.election!.id}`] = Number(c.s.flags[`campaign_${c.s.election!.id}`] ?? 0) + (c.rng.chance(0.5) ? 6 : -4); } } },
+      { label: 'Anunciar un refuerzo estrella', out: 'Anunciaste negociaciones por un refuerzo de jerarquía.', req: (c) => c.s.president.pos === 'club', reqText: 'Sólo como presidente de club', fx: { ind: { hinchas: 4 }, fn: (c) => { camp(c, 5); }, promise: { key: 'refuerzo', text: 'Traer un refuerzo de jerarquía', weeks: 12, weight: 1.2 } } },
+      { label: 'Bajar el precio de la cuota', out: 'Rebaja de cuotas anunciada.', req: (c) => c.s.president.pos === 'club', reqText: 'Sólo como presidente de club', fx: { fn: (c) => { c.s.economy.feeMult = Math.max(0.6, Math.round(c.s.economy.feeMult * 0.9 * 100) / 100); camp(c, 4); }, ind: { socios: 3, estabilidad: -2 } } },
+      { label: 'Campaña sucia contra el rival', out: 'Filtraste información del rival.', fx: { ind: { integridad: -5, periodistas: -2 }, fn: (c) => { camp(c, (c.rng.chance(0.5) ? 6 : -4)); } } },
       { label: 'Mantener el rumbo', auto: true, out: 'Seguís con tu plan.', fx: {} },
     ],
   },

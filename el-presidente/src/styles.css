@@ -297,6 +297,7 @@ input[type='range'] { width: 100%; accent-color: var(--gold); }
 .ladder .step.done .n { background: var(--green-soft); color: var(--green); }
 
 .pill-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.wizard-footer { position: sticky; bottom: 0; padding: 12px 0 calc(12px + env(safe-area-inset-bottom)); background: linear-gradient(180deg, rgba(6, 8, 13, 0), var(--bg) 40%); z-index: 5; }
 .empty { padding: 26px 12px; text-align: center; color: var(--muted); font-size: 13.5px; }
 .list-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); }
 .list-row:last-child { border-bottom: 0; }

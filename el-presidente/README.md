@@ -11,7 +11,7 @@ cd el-presidente
 npm install
 npm run dev        # servidor de desarrollo
 npm run build      # build de producción en dist/ (estático, se puede servir desde cualquier hosting)
-npm test           # simulaciones headless de varias temporadas + pruebas de carrera
+npm test           # simulaciones headless de varias temporadas, carrera completa, acciones y catálogo de acontecimientos
 ```
 
 ## Qué incluye esta versión
@@ -19,7 +19,7 @@ npm test           # simulaciones headless de varias temporadas + pruebas de car
 - **Universo argentino completo**: 52 clubes ficticios en tres divisiones (Liga Profesional 18, Primera Nacional 18, Torneo Federal 16) con ascensos y descensos, Copa Argentina, Copa Continental (con clubes de Brasil, Uruguay, Chile y Colombia), Mundial de Clubes, eliminatorias, Copa de las Américas y Copa del Mundo. 38 clubes extranjeros de 13 países actúan como rivales, compradores y vendedores.
 - **Motor de partidos** automático (plantel, entrenador, moral, lesiones, cansancio, localía, racha, estabilidad institucional, presión ambiental y aleatoriedad) con modo instantáneo y narración en vivo acelerable.
 - **20 indicadores dinámicos** que afectan realmente la simulación (rendimiento, ingresos, elecciones, sanciones, destituciones).
-- **Motor de acontecimientos** basado en datos: 131 acontecimientos base con 3 a 5 opciones, requisitos, probabilidades, urgencia, gravedad, consecuencias inmediatas, ocultas y diferidas, cadenas narrativas y variables dinámicas.
+- **Motor de acontecimientos** basado en datos: 132 acontecimientos base con 3 a 5 opciones, requisitos, probabilidades, urgencia, gravedad, consecuencias inmediatas, ocultas y diferidas, cadenas narrativas y variables dinámicas.
 - **Personajes con memoria**: dirigentes, entrenadores, representantes, periodistas, barras y políticos recuerdan lo que hiciste.
 - **Economía completa**: estado de resultados, flujo de caja, balance, préstamos, refinanciación, obras, patrocinadores, emergencia económica, atrasos salariales, inhibiciones e intervención. Patrimonio personal separado del club.
 - **Mercado de pases** con negociación de pase y salario, renovaciones, préstamos, libres, sondeo de compradores y operaciones de la IA (incluida la fuga de talento al exterior).

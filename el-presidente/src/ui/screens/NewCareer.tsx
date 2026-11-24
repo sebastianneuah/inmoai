@@ -197,7 +197,7 @@ export function NewCareer() {
         </div>
       )}
 
-      <div className="row mt" style={{ justifyContent: 'flex-end' }}>
+      <div className="row mt wizard-footer" style={{ justifyContent: 'flex-end' }}>
         {step < 3 ? (
           <button className="btn gold" disabled={!canNext} onClick={() => setStep(step + 1)}>Siguiente <Icon name="right" size={18} /></button>
         ) : (

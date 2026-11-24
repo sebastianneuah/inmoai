@@ -293,8 +293,13 @@ export function bindEvent(def: EventDef, c: Ctx): Bindings | null {
   }
   c.b = b;
   hydrate(c);
-  if (def.amount) b.amount = Math.max(0, Math.round(def.amount(c) / 1000) * 1000);
-  if (def.amount2) b.amount2 = Math.max(0, Math.round(def.amount2(c) / 1000) * 1000);
+  try {
+    if (def.amount) b.amount = Math.max(0, Math.round(def.amount(c) / 1000) * 1000);
+    if (def.amount2) b.amount2 = Math.max(0, Math.round(def.amount2(c) / 1000) * 1000);
+  } catch {
+    return null;
+  }
+  if (!Number.isFinite(b.amount ?? 0) || !Number.isFinite(b.amount2 ?? 0)) return null;
   hydrate(c);
   return b;
 }
